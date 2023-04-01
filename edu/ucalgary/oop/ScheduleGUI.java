@@ -1,3 +1,4 @@
+package edu.ucalgary.oop;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
