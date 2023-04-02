@@ -4,7 +4,7 @@ import java.util.*;
 public class AssignTime {
     private HashMap<Integer, ArrayList<String>> schedule;
     private int[] availableTime = new int[24];
-    
+
     // this would probably be called in the sql file since thats where animals and treatment lists are stored
     public AssignTime (Animal[] animals, Treatment[] currentTreatments) {
         HashMap<Integer, ArrayList<String>> schedule = new HashMap<>();
@@ -193,19 +193,19 @@ public class AssignTime {
             int hour = 0;
             int duration;
             if (AnimalSpecies.values()[i].toString() == "COYOTE") {
-                duration = AnimalSpecies.values()[i].cage();
+                duration = AnimalSpecies.values()[i].cage() * coyotes.size();
             }
             else if (AnimalSpecies.values()[i].toString() == "FOX") {
-                duration = AnimalSpecies.values()[i].cage();
+                duration = AnimalSpecies.values()[i].cage() * foxes.size();
             }
             else if (AnimalSpecies.values()[i].toString() == "PORCUPINE") {
-                duration = AnimalSpecies.values()[i].cage();
+                duration = AnimalSpecies.values()[i].cage() * porcupines.size();
             }
             else if (AnimalSpecies.values()[i].toString() == "BEAVER") {
-                duration = AnimalSpecies.values()[i].cage();
+                duration = AnimalSpecies.values()[i].cage() * beavers.size();
             }
             else {
-                duration = AnimalSpecies.values()[i].cage();
+                duration = AnimalSpecies.values()[i].cage() * racoons.size();
             }
             boolean hourFound = false;
             if ((AnimalSpecies.values()[i].toString() == "COYOTE" && !coyotes.isEmpty()) || (AnimalSpecies.values()[i].toString() == "FOX" && !foxes.isEmpty()) ||
@@ -235,7 +235,7 @@ public class AssignTime {
         for (int i=0; i < 24; i++) {
             System.out.println(schedule.get(i)); // remove. this is for double checking
         }
-        System.out.println(availableTime[0]);
+        //System.out.println(availableTime[0]);
     }
 
     public int[] getAvailableTime() {
@@ -303,19 +303,19 @@ public class AssignTime {
                 totalDuration += AnimalSpecies.RACOON.feed() * racoons.size();
             }
             else if(task.equals("Clean cage(coyote)")) {
-                totalDuration += AnimalSpecies.COYOTE.cage();
+                totalDuration += AnimalSpecies.COYOTE.cage() * coyotes.size();
             }
             else if(task.equals("Clean cage(fox)")) {
-                totalDuration += AnimalSpecies.FOX.cage();
+                totalDuration += AnimalSpecies.FOX.cage() * foxes.size();
             }
             else if(task.equals("Clean cage(porcupine)")) {
-                totalDuration += AnimalSpecies.PORCUPINE.cage();
+                totalDuration += AnimalSpecies.PORCUPINE.cage() * porcupines.size();
             }
             else if(task.equals("Clean cage(beaver)")) {
-                totalDuration += AnimalSpecies.BEAVER.cage();
+                totalDuration += AnimalSpecies.BEAVER.cage() * beavers.size();
             }
             else if(task.equals("Clean cage(racoon)")) {
-                totalDuration += AnimalSpecies.RACOON.cage();
+                totalDuration += AnimalSpecies.RACOON.cage() * racoons.size();
             }
             else {
                 totalDuration += getTreatmentFromDescription(treatments, task).getMedical().getDuration();
@@ -324,7 +324,7 @@ public class AssignTime {
         return totalDuration;
     }
     public static void main(String[] args) {
-        Animal[] animals = new Animal[10];
+        Animal[] animals = new Animal[8];
         animals[0] = new Animal(1, "Loner", "coyote");
         animals[1] = new Animal(2, "Biter", "coyote");
         animals[2] = new Animal(3, "Bitter", "coyote");
@@ -340,11 +340,11 @@ public class AssignTime {
         tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
 
         Treatment[] treatments = new Treatment[5];
-        treatments[0] = new Treatment(animals[2], tasks[0],0);
-        treatments[1] = new Treatment(animals[5], tasks[0], 0);
-        treatments[2] = new Treatment(animals[5], tasks[0], 1);
-        treatments[3] = new Treatment(animals[1], tasks[0], 1);
-        treatments[4] = new Treatment(animals[4], tasks[0], 1);
+        treatments[0] = new Treatment(animals[2], tasks[0],13);
+        treatments[1] = new Treatment(animals[5], tasks[0], 14);
+        treatments[2] = new Treatment(animals[5], tasks[0], 15);
+        treatments[3] = new Treatment(animals[1], tasks[0], 16);
+        treatments[4] = new Treatment(animals[4], tasks[0], 17);
         
         AssignTime schedule = new AssignTime(animals, treatments);
     }
