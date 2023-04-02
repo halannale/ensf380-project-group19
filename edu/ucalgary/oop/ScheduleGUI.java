@@ -34,21 +34,58 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
     }
     
     public void actionPerformed(ActionEvent event){
-        //call schedule
-        //if illegal schedule
-        confirmClose++;
-        JOptionPane.showMessageDialog(this, "Not possible to create schedule");
-        confirmClose--;
+        Animal[] animals = new Animal[8];
+        animals[0] = new Animal(1, "Loner", "coyote");
+        animals[1] = new Animal(2, "Biter", "coyote");
+        animals[2] = new Animal(3, "Bitter", "coyote");
+        animals[3] = new Animal(4, "Pencil", "coyote");
+        animals[4] = new Animal(5, "Eraser", "coyote");
+        animals[5] = new Animal(6, "Annie, Oliver and Mowgli", "fox");
+        animals[6] = new Animal(7, "Slinky", "fox");
+        animals[7] = new Animal(8, "Spike", "porcupine");
 
-        //if schedule is created, backup volunteers needed
-        confirmClose++;
-        JOptionPane.showMessageDialog(this, "Schedule created, backup volunteers needed.");
-        confirmClose--;
+        MedicalTask[] tasks = new MedicalTask[3];
+        tasks[0] = new MedicalTask(1, "Kit feeding", 30, 2);
+        tasks[1] = new MedicalTask(2, "Rebandage leg wound", 20, 1);
+        tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
 
-        //if schedule is created with no backup volunteers needed
-        confirmClose++;
-        JOptionPane.showMessageDialog(this, "Schedule created");
-        confirmClose--;
+        Treatment[] treatments = new Treatment[5];
+        treatments[0] = new Treatment(animals[2], tasks[0],13);
+        treatments[1] = new Treatment(animals[5], tasks[0], 14);
+        treatments[2] = new Treatment(animals[5], tasks[0], 15);
+        treatments[3] = new Treatment(animals[1], tasks[0], 16);
+        treatments[4] = new Treatment(animals[4], tasks[0], 17);
+        try {
+            AssignTime schedule = new AssignTime(animals, treatments);
+            int backup = 0;
+            for (int i=0; i<24; i++) {
+                if (schedule.getAvailableTime()[i] == 120) {
+                    backup = 1;
+                }
+            }
+            if (backup == 1) {
+                confirmClose++;
+                JOptionPane.showMessageDialog(this, "Schedule created, backup volunteers needed. Please confirm they are called");
+                confirmClose--;
+
+                confirmClose++;
+                JOptionPane.showMessageDialog(this, "Schedule created");
+                confirmClose--;
+            }
+    
+            else {
+                confirmClose++;
+                JOptionPane.showMessageDialog(this, "Schedule created");
+                confirmClose--;
+            }
+        }
+        catch (IllegalSchedule e) {
+            //if illegal schedule
+            confirmClose++;
+            JOptionPane.showMessageDialog(this, "Not possible to create schedule");
+            confirmClose--;
+        }
+        //SchedulePrint();
 
         if (confirmClose == 0) {
             System.exit(0);
