@@ -30,7 +30,7 @@ public class SchedulePrint {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalSchedule {
         Animal[] animals = new Animal[8];
         animals[0] = new Animal(1, "Loner", "coyote");
         animals[1] = new Animal(2, "Biter", "coyote");
@@ -55,7 +55,6 @@ public class SchedulePrint {
 
         AssignTime assignTime = new AssignTime(animals, treatments);
         HashMap<Integer, ArrayList<String>> schedule = assignTime.getSchedule();
-        System.out.println(schedule.get(0));
         SchedulePrint schedulePrint = new SchedulePrint(schedule);
         schedulePrint.printSchedule();
     }

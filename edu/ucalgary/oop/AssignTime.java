@@ -227,9 +227,9 @@ public class AssignTime {
             schedule.put(i, hourlyTasks.get(i));
         }
         this.schedule = schedule;
-        for (int i=0; i < 24; i++) {
-            System.out.println(schedule.get(i)); // remove. this is for double checking
-        }
+        // for (int i=0; i < 24; i++) {
+        //     System.out.println(schedule.get(i)); // remove. this is for double checking
+        // }
         //System.out.println(availableTime[0]);
     }
 
