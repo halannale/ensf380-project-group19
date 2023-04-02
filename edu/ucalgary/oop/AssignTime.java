@@ -6,7 +6,7 @@ public class AssignTime {
     private int[] availableTime = new int[24];
 
     // this would probably be called in the sql file since thats where animals and treatment lists are stored
-    public AssignTime (Animal[] animals, Treatment[] currentTreatments) {
+    public AssignTime (Animal[] animals, Treatment[] currentTreatments) throws IllegalSchedule{
         HashMap<Integer, ArrayList<String>> schedule = new HashMap<>();
         ArrayList<ArrayList<String>> hourlyTasks = new ArrayList<>(); //initialize the hourly tasks array
         Treatment[] totalTreatments = new Treatment[currentTreatments.length];
@@ -45,13 +45,11 @@ public class AssignTime {
                         currentTreatments = removeTreatment(currentTreatments, taskIndex);
                     }
                     else {
-                        System.out.println("Cannot generate schedule");
-                        System.exit(1);
+                        throw new IllegalSchedule();
                     }
                 }
                 else {
-                    System.out.println("Cannot generate schedule");
-                    System.exit(1);
+                    throw new IllegalSchedule();
                 }
 
             }
@@ -100,8 +98,7 @@ public class AssignTime {
                         hour++;
                     }
                     if (!hourFound) {
-                        System.out.println("Cannot generate schedule");
-                        System.exit(1);
+                        throw new IllegalSchedule();
                     }
                 }
             }
@@ -182,8 +179,7 @@ public class AssignTime {
                         startHour++;
                     }
                     if (!hourFound) {
-                        System.out.println("Cannot generate schedule");
-                        System.exit(1);
+                        throw new IllegalSchedule();
                    }
                 }
             }
@@ -221,8 +217,7 @@ public class AssignTime {
                     hour++;
                 }
                 if (!hourFound) {
-                    System.out.println("Cannot generate schedule");
-                    System.exit(1);
+                    throw new IllegalSchedule();
                 }
             }
         }
@@ -231,10 +226,10 @@ public class AssignTime {
         for (int i = 0; i < 24; i++) {
             schedule.put(i, hourlyTasks.get(i));
         }
-
-        // for (int i=0; i < 24; i++) {
-        //     System.out.println(schedule.get(i)); // remove. this is for double checking
-        // }
+        this.schedule = schedule;
+        for (int i=0; i < 24; i++) {
+            System.out.println(schedule.get(i)); // remove. this is for double checking
+        }
         //System.out.println(availableTime[0]);
     }
 
@@ -323,7 +318,7 @@ public class AssignTime {
         }
         return totalDuration;
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IllegalSchedule {
         Animal[] animals = new Animal[8];
         animals[0] = new Animal(1, "Loner", "coyote");
         animals[1] = new Animal(2, "Biter", "coyote");
@@ -346,6 +341,6 @@ public class AssignTime {
         treatments[3] = new Treatment(animals[1], tasks[0], 16);
         treatments[4] = new Treatment(animals[4], tasks[0], 17);
         
-        AssignTime schedule = new AssignTime(animals, treatments);
+        AssignTime assignTime = new AssignTime(animals, treatments);
     }
 }
