@@ -2,7 +2,7 @@ package edu.ucalgary.oop;
 import java.util.*;
 
 public class AssignTime {
-    private HashMap<Integer, ArrayList<Treatment>> schedule;
+    private HashMap<Integer, ArrayList<String>> schedule;
     private int[] availableTime = new int[24];
 
     // this would probably be called in the sql file since thats where animals and treatment lists are stored
@@ -204,6 +204,10 @@ public class AssignTime {
 
     public int[] getAvailableTime() {
         return this.availableTime;
+    }
+
+    public HashMap<Integer, ArrayList<String>> getSchedule() {
+        return this.schedule;
     }
 
     private int findLowestMaxWindowIndex(Treatment[] treatments) {
