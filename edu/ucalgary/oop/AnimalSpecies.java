@@ -40,7 +40,7 @@ public enum AnimalSpecies {
     public int prep() {
         switch(this) {
             case COYOTE:
-                return 10;
+                return 50;
             case FOX:
                 return 5;
             case PORCUPINE:
