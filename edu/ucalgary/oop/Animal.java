@@ -6,7 +6,7 @@ public class Animal {
     private String species;
     private int animalID;
 
-    public Animal(String name, int id, String species) throws IllegalArgumentException{
+    public Animal(int id, String name, String species) throws IllegalArgumentException{
         this.name = name;
         this.animalID = id;
         if (!checkAnimalSpecies(species)) {
