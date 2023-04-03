@@ -3,16 +3,15 @@ package edu.ucalgary.oop;
 import java.sql.*;
 import java.util.ArrayList;
 import java.awt.EventQueue;
-import java.awt.List;
 
 public class SQLInfo {
 
     private Connection dbConnect;
     private ResultSet results;
 
-    private static ArrayList<String[]> animals = new ArrayList<String[]>();
-    private static ArrayList<String[]> treatments = new ArrayList<String[]>();
-    private static ArrayList<String[]> tasks = new ArrayList<String[]>();
+    private ArrayList<String[]> animals = new ArrayList<String[]>();
+    private ArrayList<String[]> treatments = new ArrayList<String[]>();
+    private ArrayList<String[]> tasks = new ArrayList<String[]>();
     private Animal [] animals_obj;
     private Treatment [] treatment_obj;
     private MedicalTask [] tasks_obj;
@@ -163,10 +162,54 @@ public class SQLInfo {
         }
         return treatment_obj;
     }
+
+    public void insertNewStart(int treatmentID, int animalID, int taskID, int startHour){
+
+        try {
+            
+            String query = "INSERT INTO TREATMENTS (treatmentID, animalID, taskID, startHour) VALUES (?,?,?,?)";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+            
+            myStmt.setInt(1, treatmentID);
+            myStmt.setInt(2, animalID);
+            myStmt.setInt(3, taskID);
+            myStmt.setInt(4, startHour);
+            
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+            
+            myStmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }    
+
     
+    public void deleteTreatment(int treatmentID){
+                    
+        try {
+            String query = "DELETE FROM treatments WHERE TreatmentID = ?";
+            PreparedStatement myStmt = dbConnect.prepareStatement(query);
+
+            myStmt.setInt(1, treatmentID);
+                        
+            int rowCount = myStmt.executeUpdate();
+            System.out.println("Rows affected: " + rowCount);
+            
+            myStmt.close();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+    } 
+
     public void close() {
         try {
-            results.close();
+            if (results != null) {
+                results.close();
+            }
             dbConnect.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -182,48 +225,6 @@ public class SQLInfo {
         SQLInfo mySQL = new SQLInfo();
 
         mySQL.createConnection();
-
-        animals = mySQL.selectAnimals();
-        System.out.println("Here is a list of animals: ");
-        for (String[] animalData : animals) {
-            System.out.println("AnimalID: " + animalData[0] + ", AnimalNickname: " + animalData[1] + ", AnimalSpecies: " + animalData[2]);
-        }
-      
-        treatments = mySQL.selectTreatments();
-        System.out.println("Here is a list of treatments: ");
-        for (String[] treatmentData : treatments) {
-            System.out.println("TreatmentID: " + treatmentData[0] + ", AnimalID: " + treatmentData[1] + ", TaskID: " + treatmentData[2] + ", StartHour: " + treatmentData[3]);
-        }
-
-        tasks = mySQL.selectTasks();
-        System.out.println("Here is a list of TASKS: ");
-        for (String[] taskData : tasks) {
-            System.out.println("taskID: " + taskData[0] + ", Description: " + taskData[1] + ", Duration: " + taskData[2] + ", MaxWindow" + taskData[3]);
-        }
-        
-        SQLInfo obj = new SQLInfo();
-
-        
-        Animal[] animalArray = obj.createAnimalsList();
-
-        
-        for (Animal animal : animalArray) {
-            System.out.println(animal.getID() + ", " + animal.getName() + ", " + animal.getSpecies());
-        }
-
-        MedicalTask[] tasksArray = obj.createTasksList();
-
-        
-        for (MedicalTask task : tasksArray) {
-            System.out.println(task.getID() + ", " + task.getDescription() + ", " + task.getDuration() + ", " + task.getMaxWindow());
-        }
-
-        Treatment[] treatsArray = obj.createTreatmentList();
-
-        
-        for (Treatment treatment : treatsArray) {
-            System.out.println(treatment.getStartHour() + ", " + treatment.getAnimal().getID() + ", " + treatment.getMedical().getID());
-        }
 
         mySQL.close();
     }
