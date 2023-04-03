@@ -25,6 +25,7 @@ public class ScheduleGUI extends JFrame implements ActionListener{
     private JLabel instructions;
     private int confirmClose = 0; 
     private static ArrayList<String> tasksToChange;
+    private int newStartHour;
 
     /**
      * Sets the static variable to tasks to be changed.
@@ -91,11 +92,11 @@ public class ScheduleGUI extends JFrame implements ActionListener{
         tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
 
         Treatment[] treatments = new Treatment[5];
-        treatments[0] = new Treatment(animals[2], tasks[1],0);
-        treatments[1] = new Treatment(animals[5], tasks[1], 0);
-        treatments[2] = new Treatment(animals[5], tasks[1], 0);
-        treatments[3] = new Treatment(animals[1], tasks[1], 0);
-        treatments[4] = new Treatment(animals[4], tasks[1], 0);
+        treatments[0] = new Treatment(animals[2], tasks[1],13);
+        treatments[1] = new Treatment(animals[5], tasks[1], 14);
+        treatments[2] = new Treatment(animals[5], tasks[1], 15);
+        treatments[3] = new Treatment(animals[1], tasks[1], 16);
+        treatments[4] = new Treatment(animals[4], tasks[1], 17);
         try {
             SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
             schedulePrint.printSchedule();
@@ -139,10 +140,13 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                 public void actionPerformed(ActionEvent e) {
                     String userInputValue = input.getText();
                     int oldStartHour = Integer.parseInt(tasksToChange.get(2));
-                    int newStartHour = Integer.parseInt(userInputValue);
+                    newStartHour = Integer.parseInt(userInputValue);
                     int animalID = Integer.parseInt(tasksToChange.get(3));
                     int medicalID = Integer.parseInt(tasksToChange.get(4));
-                    // Do something with the user input with sql methods
+
+                    if (validateInput()) {
+                        SQLInfo.deleteTreatment();
+                    } 
                 }
             });
 
@@ -158,6 +162,17 @@ public class ScheduleGUI extends JFrame implements ActionListener{
             System.exit(0);
         }
     }
+    private boolean validateInput(){
+        
+        boolean allInputValid = true;
+        
+        if(newStartHour < 0 || newStartHour > 23){
+            allInputValid = false;
+            JOptionPane.showMessageDialog(this, newStartHour + " is an invalid hour input.");
+        }
+        return allInputValid;
+    }
+    
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
