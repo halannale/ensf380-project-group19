@@ -4,7 +4,7 @@
     Grace Jang
     Christy Guirguis
     Gillian Habermehl
-@version 9.0
+@version 10.0
 @since 1.0
 */
 
@@ -20,6 +20,7 @@ import java.util.*;
 public class AssignTime {
     private HashMap<Integer, ArrayList<String>> schedule;
     private int[] availableTime = new int[24];
+    private ArrayList<String> tasksToChange;
 
     /**
      * Constructs an AssignTime object with schedule and available time each hour
@@ -67,10 +68,12 @@ public class AssignTime {
                         currentTreatments = removeTreatment(currentTreatments, taskIndex);
                     }
                     else {
+                        tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                         throw new IllegalSchedule();
                     }
                 }
                 else {
+                    tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                     throw new IllegalSchedule();
                 }
 
@@ -122,12 +125,12 @@ public class AssignTime {
                         hour++;
                     }
                     if (!hourFound) {
+                        tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                         throw new IllegalSchedule();
                     }
                 }
 
             }
-            
         }
 
         // assign times for each animal and make list for each species
@@ -280,6 +283,15 @@ public class AssignTime {
     }
 
     /**
+     * Returns the tasks that might need changing.
+     * 
+     * @return the tasks that might need changing
+     */
+    public ArrayList<String> getTasksToChange() {
+        return this.tasksToChange;
+    }
+
+    /**
      * Finds the treatment with the lowest maximum window.
      * 
      * @param treatments the list of treatments to be done
@@ -320,7 +332,14 @@ public class AssignTime {
         return treatments;
     }
 
-    private Treatment getTreatmentFromDescription(Treatment[] treatments, String description) {
+    /**
+     * Finds the treatment corresponding to the description given.
+     * 
+     * @param treatments the list of treatments to be done
+     * @param description the description
+     * @return the treatment corresponding to the description given
+     */
+    public Treatment getTreatmentFromDescription(Treatment[] treatments, String description) {
         String descriptionToMatch = description.split("\\(")[0];
         for (Treatment treatment : treatments) {
             if (treatment.getMedical().getDescription().equals(descriptionToMatch)) {
