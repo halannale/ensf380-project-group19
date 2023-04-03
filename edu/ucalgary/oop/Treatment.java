@@ -1,5 +1,3 @@
-package edu.ucalgary.oop;
-
 /**
 @author 
     Halanna Le
@@ -14,6 +12,8 @@ package edu.ucalgary.oop;
 This class represents a treatment given to an animal. It includes information about 
 the animal being treated, the medical task being performed, and the start hour of the treatment.
 */
+package edu.ucalgary.oop;
+
 public class Treatment {
 
     private Animal animal;
