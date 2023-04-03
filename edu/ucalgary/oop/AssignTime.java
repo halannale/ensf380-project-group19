@@ -70,6 +70,9 @@ public class AssignTime {
                     else {
                         tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getMedical().getID()));
                         ScheduleGUI.setTasksToChange(tasksToChange);
                         throw new IllegalSchedule();
                     }
@@ -77,6 +80,9 @@ public class AssignTime {
                 else {
                     tasksToChange.add(Integer.toString(taskIndex));
                     tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                    tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
+                    tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
+                    tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getMedical().getID()));
                     ScheduleGUI.setTasksToChange(tasksToChange);
                     throw new IllegalSchedule();
                 }
@@ -131,6 +137,9 @@ public class AssignTime {
                     if (!hourFound) {
                         tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
+                        tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getMedical().getID()));
                         ScheduleGUI.setTasksToChange(tasksToChange);
                         throw new IllegalSchedule();
                     }
@@ -163,7 +172,7 @@ public class AssignTime {
             }
         }
 
-            // assign feed+prep time
+        // assign feed+prep time
         for (int i = 0; i < AnimalSpecies.values().length; i++) { 
             int hour = AnimalSpecies.values()[i].feedWindow()[0];
             int duration;
@@ -288,12 +297,6 @@ public class AssignTime {
     public HashMap<Integer, ArrayList<String>> getSchedule() {
         return this.schedule;
     }
-
-    /**
-     * Returns the tasks that might need changing.
-     * 
-     * @return the tasks that might need changing
-     */
 
     /**
      * Finds the treatment with the lowest maximum window.
