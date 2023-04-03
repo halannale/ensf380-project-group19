@@ -26,8 +26,15 @@ public class SQLInfo {
         return this.treatment_obj;
     }
 
-
     public SQLInfo() {
+        selectAnimals();
+        selectTasks();
+        selectTreatments();
+        createTasksList();
+
+        this.animals_obj = createAnimalsList();
+        this.treatment_obj = createTreatmentList();
+        this.tasks_obj = createTasksList();
     }
 
     public void createConnection() {
@@ -39,7 +46,6 @@ public class SQLInfo {
     }
 
     public ArrayList<String[]> selectAnimals() {
-
         try {
             Statement myStmt = dbConnect.createStatement();
             results = myStmt.executeQuery("SELECT * FROM ANIMALS");
@@ -163,17 +169,16 @@ public class SQLInfo {
         return treatment_obj;
     }
 
-    public void insertNewStart(int treatmentID, int animalID, int taskID, int startHour){
+    public void insertNewStart(int animalID, int taskID, int startHour){
 
         try {
             
-            String query = "INSERT INTO TREATMENTS (treatmentID, animalID, taskID, startHour) VALUES (?,?,?,?)";
+            String query = "INSERT INTO TREATMENTS (animalID, taskID, startHour) VALUES (?,?,?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             
-            myStmt.setInt(1, treatmentID);
-            myStmt.setInt(2, animalID);
-            myStmt.setInt(3, taskID);
-            myStmt.setInt(4, startHour);
+            myStmt.setInt(1, animalID);
+            myStmt.setInt(2, taskID);
+            myStmt.setInt(3, startHour);
             
             int rowCount = myStmt.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
