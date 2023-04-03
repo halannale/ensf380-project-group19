@@ -50,11 +50,11 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
 
         Treatment[] treatments = new Treatment[5];
-        treatments[0] = new Treatment(animals[2], tasks[1],0);
-        treatments[1] = new Treatment(animals[5], tasks[1], 0);
-        treatments[2] = new Treatment(animals[5], tasks[1], 0);
-        treatments[3] = new Treatment(animals[1], tasks[1], 0);
-        treatments[4] = new Treatment(animals[4], tasks[1], 0);
+        treatments[0] = new Treatment(animals[2], tasks[1],19);
+        treatments[1] = new Treatment(animals[5], tasks[1], 19);
+        treatments[2] = new Treatment(animals[5], tasks[1], 19);
+        treatments[3] = new Treatment(animals[1], tasks[1], 16);
+        treatments[4] = new Treatment(animals[4], tasks[1], 17);
         try {
             SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
             schedulePrint.printSchedule();
@@ -76,12 +76,21 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         }
         catch (IllegalSchedule e) {
             //if illegal schedule
-            confirmClose++;
-            JOptionPane.showMessageDialog(this, "Not possible to create schedule");
-            confirmClose--;
-        }
-        //SchedulePrint();
+            JDialog illegalDialog = new JDialog(this, "Cannot Generate Schedule", true);
+            JLabel illegalLabel = new JLabel("Not possible to create schedule. Please check input data.");
+            JPanel headerPanel = new JPanel();
+            headerPanel.setLayout(new FlowLayout());
+            headerPanel.add(illegalLabel);
+            illegalDialog.add(headerPanel, BorderLayout.NORTH);
+            
 
+
+
+            illegalDialog.setSize(500, 300);
+            illegalDialog.setLocationRelativeTo(this);
+            illegalDialog.setVisible(true);
+        }
+        
         if (confirmClose == 0) {
             System.exit(0);
         }
