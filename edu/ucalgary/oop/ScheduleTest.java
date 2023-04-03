@@ -15,105 +15,165 @@ public class ScheduleTest {
     Treatment treatment1 = new Treatment(animal1, task1, 22);
 
 
-    @Test
-    public void testGetters() {
-        // Animal
-        //getID: int
-        
-        int expectedAnimalID1 = 1;
+    /*
+    * Getters for the Animal class
+    */
 
+    @Test 
+    public void testGetIDAnimal() {
+        /*
+         * Tests the return of getID() in animal class.
+         */
+
+        int expectedAnimalID1 = 1;
         int actualAnimalID = animal1.getID();
 
         assertEquals("Constructor or getter gave wrong value for animal id", 
         expectedAnimalID1, actualAnimalID);
+    }
 
-        //getName: String
+    @Test
+    public void testGetName(){
+        /*
+         * Tests the return of getName().
+         */
+
         String expectedAnimalName1 = "Loner";
-
         String actualAnimalName = animal1.getName();
 
         assertEquals("Constructor or getter gave wrong value for animal name", 
         expectedAnimalName1, actualAnimalName);
+    }
 
-        //getSpecies: String
+    @Test 
+    public void testGetSpecies() {
+        /*
+         * Tests the return of getSpecies().
+         */
+
         String expectedAnimalSpecies1 = "Coyote";
-
         String actualAnimalSpecies = animal1.getSpecies();
-
+  
         assertEquals("Constructor or getter gave wrong value for animal type", 
         expectedAnimalSpecies1, actualAnimalSpecies);
+    }
 
+    /*
+    * Getters for the MedicalTask class
+    */
 
+    @Test 
+    public void testGetDuration() {
+        /*
+         * Tests the return of getDuration().
+        */
 
-        // MedicalTask
-        //getDuration: int
         int expectedDuration1 = 25;
-
         int actualDuration = task1.getDuration();
 
         assertEquals("Constructor or getter gave wrong value for duration", 
         expectedDuration1, actualDuration);
+    }
 
-        //getID: int
+    @Test
+    public void testGetIDMedical() {
+        /*
+        * Tests the return of getID() in MedicalTask class.
+        */
+
         int expectedTaskID1 = 9;
-
         int actualTaskID = task1.getID();
 
         assertEquals("Constructor or getter gave wrong value for task id", 
         expectedTaskID1, actualTaskID);
+    }
 
-        //getDescription: String
+    @Test
+    public void testGetDescription() {
+        /*
+        * Tests the return of getDescription().
+        */
+
         String expectedDescription1 = "Eyedrops";
-
         String actualDescription = task1.getDescription();
 
         assertEquals("Constructor or getter gave wrong value for description", 
         expectedDescription1, actualDescription);
+    }
 
-        //getMaxWindow:int
+    @Test 
+    public void testGetMaxWindow() {
+        /*
+        * Tests the return of getMaxWindow().
+        */
+
         int expectedMaxWindow1 = 1;
-
         int actualMaxWindow = task1.getMaxWindow();
 
         assertEquals("Constructor or getter gave wrong value for maximum window", 
         expectedMaxWindow1, actualMaxWindow);
+    }
 
+    /*
+    * Getters for the Treatment class
+    */
 
-        // Treatment
-        //getStartHour:int
+    @Test
+    public void testGetStartHour() {
+        /*
+        * Tests the return of getStartHour().
+        */
+
         int expectedStartHour1 = 22;
-
         int actualStartHour = treatment1.getStartHour();
 
         assertEquals("Constructor or getter gave wrong value for starting hour", 
         expectedStartHour1, actualStartHour);
+    }
 
-        //getMedical: MedicalTask
+    @Test 
+    public void testGetMedical() {
+        /*
+        * Tests the return of getMedical().
+        */
+
         MedicalTask expectedTask = task1;
-
         MedicalTask actualTask = treatment1.getMedical();
 
         assertEquals("Constructor or getter gave wrong value for medical task", 
         expectedTask, actualTask);
+    }
 
-        //getAnimal: Animal
+    @Test 
+    public void testGetAnimal() {
+        /*
+        * Tests the return of getAnimal().
+        */
+
         Animal expectedAnimal = animal1;
-
         Animal actualAnimal = treatment1.getAnimal();
 
         assertEquals("Constructor or getter gave wrong value for animal", 
         expectedAnimal, actualAnimal);
-        
+    }
+
+    /*
+    * Getters for the AssignTime class
+    */
+
+
 
         // AssignTime
         //getAvailableTime: int[]
         //getSchedule: HashMap<Integer, ArrayList<String>>
         //getTreatmentFromDescription: Treatment
 
-
+    /*
+    * Getters for the SchedulePrint class
+    */
         //SchedulePrint
         //getAssignTime
-    }
+
 
     @Test 
     public void testAssignTime() {
