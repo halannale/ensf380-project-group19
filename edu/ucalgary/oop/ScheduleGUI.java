@@ -56,10 +56,11 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         treatments[3] = new Treatment(animals[1], tasks[0], 16);
         treatments[4] = new Treatment(animals[4], tasks[0], 17);
         try {
-            AssignTime schedule = new AssignTime(animals, treatments);
+            SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
+            schedulePrint.printSchedule();
             int backup = 0;
             for (int i=0; i<24; i++) {
-                if (schedule.getAvailableTime()[i] == 120) {
+                if (schedulePrint.getAssignTime().getAvailableTime()[i] == 120) {
                     backup = 1;
                 }
             }
