@@ -1,3 +1,19 @@
+/**
+@author 
+    Halanna Le
+    Grace Jang
+    Christy Guirguis
+    Gillian Habermehl
+@version 9.0
+@since 1.0
+*/
+
+/*
+This class implements the assignment of tasks to certain hours of the day to create a schedule and ensures that if the total duration of the tasks slotted in the hour
+    do exceeds 60 minutes, a backup volunteer will be needed and an additional 60 minutes of extra time will be allotted for that hour.
+    The implentation follows the priority order of treatments with lower max windows, to higher ones, and the feeding the animals of each species, 
+    and then cleaning cages will be assigned last.
+*/
 package edu.ucalgary.oop;
 import java.util.*;
 
@@ -5,7 +21,13 @@ public class AssignTime {
     private HashMap<Integer, ArrayList<String>> schedule;
     private int[] availableTime = new int[24];
 
-    // this would probably be called in the sql file since thats where animals and treatment lists are stored
+    /**
+     * Constructs an AssignTime object with schedule and available time each hour
+     * 
+     * @param animals list of animals
+     * @param currentTreatments list of treatments needed to be done
+     * @throws IllegalSchedule if the schedule cannot be made
+    */
     public AssignTime (Animal[] animals, Treatment[] currentTreatments) throws IllegalSchedule{
         HashMap<Integer, ArrayList<String>> schedule = new HashMap<>();
         ArrayList<ArrayList<String>> hourlyTasks = new ArrayList<>(); //initialize the hourly tasks array
@@ -236,20 +258,33 @@ public class AssignTime {
         for (int i = 0; i < 24; i++) {
             schedule.put(i, hourlyTasks.get(i));
         }
-        this.schedule = schedule;
-
-
-        
+        this.schedule = schedule;  
     }
 
+    /**
+     * Returns the available time to do tasks within the hour.
+     * 
+     * @return the available time to do tasks within the hour
+     */
     public int[] getAvailableTime() {
         return this.availableTime;
     }
 
+    /**
+     * Returns the schedule.
+     * 
+     * @return the schedule
+     */
     public HashMap<Integer, ArrayList<String>> getSchedule() {
         return this.schedule;
     }
 
+    /**
+     * Finds the treatment with the lowest maximum window.
+     * 
+     * @param treatments the list of treatments to be done
+     * @return the treatment with the lowest maximum window
+     */
     private int findLowestMaxWindowIndex(Treatment[] treatments) {
         int lowestMaxWindowIndex = 0;
         int lowestMaxWindowValue = treatments[0].getMedical().getMaxWindow();
@@ -264,6 +299,13 @@ public class AssignTime {
         return lowestMaxWindowIndex;
     }
 
+    /**
+     * Finds the treatment with the lowest maximum window.
+     * 
+     * @param treatments the list of treatments to be done
+     * @param taskIndex the index of the treatment to be removed
+     * @return the new treatment list with removed treatment
+     */
     private Treatment[] removeTreatment(Treatment[] treatments, int taskIndex) {
         //remove the current treatment from the treatments array
         Treatment[] newTreatments = new Treatment[treatments.length-1];
@@ -288,6 +330,18 @@ public class AssignTime {
         return null;
     }
 
+    /**
+     * Calculates the duration of conducting all the tasks in the hour.
+     * 
+     * @param treatments the list of treatments to be done
+     * @param tasksInHour the tasks to be done in the hour
+     * @param coyotes the list of coyotes
+     * @param foxes the list of foxes
+     * @param porcupines the list of porcupines
+     * @param beavers the list of beavers
+     * @param racoons the list of racoons
+     * @return the calculated duration
+     */
     private int calculateDuration(Treatment[] treatments, ArrayList<String> tasksInHour, ArrayList<Animal> coyotes, ArrayList<Animal> foxes, ArrayList<Animal> porcupines, ArrayList<Animal> beavers, ArrayList<Animal> racoons) {
         int totalDuration = 0;
         for (String task : tasksInHour) {
