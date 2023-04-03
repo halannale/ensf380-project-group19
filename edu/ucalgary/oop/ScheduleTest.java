@@ -232,7 +232,19 @@ public class ScheduleTest {
 
         try{ 
             SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
+            try {
+                AssignTime expectedAssignTime = new AssignTime(animals, treatments);
+                AssignTime actualAssignTime = schedulePrint.getAssignTime();
+
+                assertTrue("Constructor or getter gave wrong value for assign time",
+                expectedAssignTime, actualAssignTime);
+    
+            }
+
+            catch(IllegalSchedulee e) {}
+
         }
+
         catch(IllegalSchedule e) {}
     }
 
