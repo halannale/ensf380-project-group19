@@ -3,16 +3,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.junit.*;
 import java.util.regex.*;
+import java.util.*;
 
 public class ScheduleTest {
     MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
     MedicalTask task2 = new MedicalTask(10, "Inspect broken leg", 5, 2);
 
-
     Animal animal1 = new Animal(1, "Loner", "Coyote");
+    Animal animal2 = new Animal(2, "Biter", "Coyote");
     //test IllegalArgumentException
 
     Treatment treatment1 = new Treatment(animal1, task1, 22);
+    Treatment treatment2 = new Treatment(animal1, task2, 10);
+
+    Animal[] animals = {animal1, animal2};
+    Treatment[] treatments = {treatment1, treatment2};
+    MedicalTask[] tasks = {task1, task2};
+
 
 
     /*
@@ -161,18 +168,82 @@ public class ScheduleTest {
     * Getters for the AssignTime class
     */
 
+    @Test
+    public void testGetAvailableTime() {
+        /*
+        * Tests the return of getAvailableTime().
+        */
 
+        try{
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            int[] expectedAvailalableTime = ;
+            int[] actualAvailableTime = assignTime.getAvailableTime();
 
-        // AssignTime
-        //getAvailableTime: int[]
-        //getSchedule: HashMap<Integer, ArrayList<String>>
-        //getTreatmentFromDescription: Treatment
+            assertEquals("Constructor or getter gave wrong value for available time", 
+            expectedAvailableTime, actualAvailableTime);
+        }
+
+        catch(IllegalSchedule e) {}
+    }
+
+    @Test
+    public void testGetSchedule() {
+        /*
+        * Tests the return of getSchedule().
+        */
+        try{
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            HashMap<Integer, ArrayList<String>> expectedSchedule = ;
+            HashMap<Integer, ArrayList<String>>  actualSchedule = assignTime.getSchedule();
+    
+            assertEquals("Constructor or getter gave wrong value for schedule", 
+            expectedSchedule, actualSchedule);
+        }
+
+        catch(IllegalSchedule e) {}
+    }
+
+    @Test 
+    public void testGetTreatmentFromDescription() {
+        /*
+        * Tests the return of getTreatmentFromDescription().
+        */
+        try {
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            Treatment expectedTreatment = treatment1;
+            Treatment actualTreatment = assignTime.getTreatmentFromDescription(treatments, "Eyedrops");
+        
+            assertEquals("Constructor or getter gave wrong value for animal", 
+            expectedTreatment, actualTreatment);
+        } 
+
+        catch (IllegalSchedule e) {}
+    }
 
     /*
     * Getters for the SchedulePrint class
     */
-        //SchedulePrint
-        //getAssignTime
+
+    @Test 
+    public void testGetAssignTime() {
+        /*
+        * Tests the return of getAssignTime().
+        */
+
+        try{ 
+            SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
+        }
+        catch(IllegalSchedule e) {}
+    }
+
+
+
+
+
+
+
+
+
 
 
     @Test 
@@ -184,51 +255,58 @@ public class ScheduleTest {
 
     }
 
-    @Test void testSchedulePrint() {
+    @Test void testPrintSchedule() {
+         /*
+        * Tests the return of printSchedule().
+        * Tests with both a valid and invalid schedule to see if an IllegalSchedule is thrown.
+        * Also test when a backup volunteer is both need and not needed (60 and 61 minutes of tasks).
+        */
         //printSchedule: void
-        //test with valid schedule
-        //test with an illegalschedule throw
-        //test with backup volunteer needed/not (more than 60 mins, less that 60 mins, 60 and 61 mins)
-        //test with sql database, see if it equals output.txt
-
     }
 
-    @Test void testEnum() {
-
-        //cage: int
-        //intstance with orphans
-        //different number of cages and cleaning
-        //feed: int
-        //prep: int
-        //feedWindow: int[]
-        //test with multiple animal and feed windows
-
-
-        // this is in animal
+    @Test void testCheckAnimalSpecies() {
+        /*
+        * Tests the return of checkAnimalSpecies().
+        * Tests with both a valid and invalid input of
+        * the ennumeration.
+        */
         //checkAnimalSpecies: boolean
-        //test for valid and invalid enum number
-        //test for all caps and lowercase 
     }
 
-    //test commit
+    @Test
+    public void testCage() {
+        /*
+        * Tests the return of prep().
+        * Tests with different number of cages for cleaning, 
+        * and with the instance of orphans.
+        */
+        //cage: int
+    }
 
+    @Test
+    public void testFeed() {
+        /*
+        * Tests the return of feed().
+        * Tests with multiple animals.
+        */
+        //feed: int
+    }
+
+    @Test
+    public void testPrep() {
+        /*
+        * Tests the return of prep().
+        * Tests with multiple animals.
+        */
+        //prep: int
+    }
+
+    @Test
+    public void testFeedWindow() {
+        /*
+        * Tests the return of feedWindow().
+        * Tests with multiple animals, and multiple feed windows.
+        */
+        //feedWindow: int[]
+    }
 }
-
-
-// String expectedAnimalName2 = "Biter";
-// String expectedAnimaSpecies2 = "Coyote";
-// int expectedAnimalID2 = 2;
-
-// Animal animal2 = Animal("Biter", 2, "Coyote");
-
-// Animal[] expectedAnimals = {animal1, animal2};
-
-// Treatment treatment2 = Treatment(1, 10, 10);
-
- //getTasks: MedicalTask[]
-//  MedicalTask[] expectedTasks = {task1, task2};
-
-//  MedicalTask[] actualTasks = animal1.getTasks();
-
-//  assertEquals("Constructor or getter gave wrong value for tasks", 
-//  expectedTasks, actualTasks);

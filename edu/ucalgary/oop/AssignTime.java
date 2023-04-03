@@ -320,7 +320,7 @@ public class AssignTime {
         return treatments;
     }
 
-    private Treatment getTreatmentFromDescription(Treatment[] treatments, String description) {
+    public Treatment getTreatmentFromDescription(Treatment[] treatments, String description) {
         String descriptionToMatch = description.split("\\(")[0];
         for (Treatment treatment : treatments) {
             if (treatment.getMedical().getDescription().equals(descriptionToMatch)) {
