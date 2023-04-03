@@ -5,32 +5,24 @@ import org.junit.*;
 import java.util.regex.*;
 
 public class ScheduleTest {
-    String expectedAnimalName2 = "Biter";
-    String expectedAnimaSpecies2 = "Coyote";
-    int expectedAnimalID2 = 2;
-    Animal animal1 = Animal("Loner", 1, "Coyote");
-    Animal animal2 = Animal("Biter", 2, "Coyote");
-    Treatment treatment1 = Treatment(1, 9, 22);
-    Treatment treatment2 = Treatment(1, 10, 10);
-    Animal[] expectedAnimals = [animal1, animal2];
-    MedicalTask task1 = MedicalTask(9, "Eyedrops", 25, 1);
-    MedicalTask task2 = MedicalTask(10, "Inspect broken leg", 5, 2);
+    MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
+    MedicalTask task2 = new MedicalTask(10, "Inspect broken leg", 5, 2);
+
+
+    Animal animal1 = new Animal(1, "Loner", "Coyote");
+    //test IllegalArgumentException
+
+    Treatment treatment1 = new Treatment(animal1, task1, 22);
+
 
     @Test
     public void testGetters() {
         // Animal
-        //getTasks: MedicalTask[]
-        MedicalTask[] expectedTasks = [task1, task2];
-
-        MedicalTask[] actualTasks = animal1.getTasks();
-
-        assertEquals("Constructor or getter gave wrong value for tasks", 
-        expectedTasks, actualTasks);
-
         //getID: int
+        
         int expectedAnimalID1 = 1;
 
-        int actualAnimalID = animal1.getAnimalID();
+        int actualAnimalID = animal1.getID();
 
         assertEquals("Constructor or getter gave wrong value for animal id", 
         expectedAnimalID1, actualAnimalID);
@@ -46,7 +38,7 @@ public class ScheduleTest {
         //getSpecies: String
         String expectedAnimalSpecies1 = "Coyote";
 
-        String actualAnimalSpecies = animal1.getType();
+        String actualAnimalSpecies = animal1.getSpecies();
 
         assertEquals("Constructor or getter gave wrong value for animal type", 
         expectedAnimalSpecies1, actualAnimalSpecies);
@@ -57,7 +49,7 @@ public class ScheduleTest {
         //getDuration: int
         int expectedDuration1 = 25;
 
-        int actualDuration = animal1.getDuration();
+        int actualDuration = task1.getDuration();
 
         assertEquals("Constructor or getter gave wrong value for duration", 
         expectedDuration1, actualDuration);
@@ -65,7 +57,7 @@ public class ScheduleTest {
         //getID: int
         int expectedTaskID1 = 9;
 
-        int actualTaskID = task1.getTaskID();
+        int actualTaskID = task1.getID();
 
         assertEquals("Constructor or getter gave wrong value for task id", 
         expectedTaskID1, actualTaskID);
@@ -108,9 +100,10 @@ public class ScheduleTest {
         Animal expectedAnimal = animal1;
 
         Animal actualAnimal = treatment1.getAnimal();
+
+        assertEquals("Constructor or getter gave wrong value for animal", 
+        expectedAnimal, actualAnimal);
         
-
-
 
         // AssignTime
         //getAvailableTime: int[]
@@ -160,3 +153,22 @@ public class ScheduleTest {
     //test commit
 
 }
+
+
+// String expectedAnimalName2 = "Biter";
+// String expectedAnimaSpecies2 = "Coyote";
+// int expectedAnimalID2 = 2;
+
+// Animal animal2 = Animal("Biter", 2, "Coyote");
+
+// Animal[] expectedAnimals = {animal1, animal2};
+
+// Treatment treatment2 = Treatment(1, 10, 10);
+
+ //getTasks: MedicalTask[]
+//  MedicalTask[] expectedTasks = {task1, task2};
+
+//  MedicalTask[] actualTasks = animal1.getTasks();
+
+//  assertEquals("Constructor or getter gave wrong value for tasks", 
+//  expectedTasks, actualTasks);
