@@ -71,9 +71,11 @@ public class AssignTime {
                             tasksInHour.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                             currentTreatments = removeTreatment(currentTreatments, taskIndex);
                             hourFound = true;
+
                         }
                     }
                     hour++;
+
                 }
                 if (!hourFound) {
                     //backup volunteer required
@@ -101,7 +103,9 @@ public class AssignTime {
                         throw new IllegalSchedule();
                     }
                 }
+
             }
+            
         }
 
         // assign times for each animal and make list for each species
@@ -161,6 +165,8 @@ public class AssignTime {
                         }
                     }
                     hour++;
+
+
                 }
                 if (!hourFound) {
                     //backup volunteer required
@@ -177,13 +183,16 @@ public class AssignTime {
                             }
                         }
                         startHour++;
+
                     }
                     if (!hourFound) {
                         throw new IllegalSchedule();
                    }
                 }
             }
+
         }
+
         // assign cage cleaning
         for (int i = 0; i < AnimalSpecies.values().length; i++) { 
             int hour = 0;
@@ -220,6 +229,7 @@ public class AssignTime {
                     throw new IllegalSchedule();
                 }
             }
+
         }
 
         // finally, add tasks to hashmap schedule
@@ -227,10 +237,9 @@ public class AssignTime {
             schedule.put(i, hourlyTasks.get(i));
         }
         this.schedule = schedule;
-        // for (int i=0; i < 24; i++) {
-        //     System.out.println(schedule.get(i)); // remove. this is for double checking
-        // }
-        //System.out.println(availableTime[0]);
+
+
+        
     }
 
     public int[] getAvailableTime() {
