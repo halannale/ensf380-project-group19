@@ -6,7 +6,7 @@ import java.awt.EventQueue;
 
 public class SQLInfo {
 
-    private Connection dbConnect;
+    private static Connection dbConnect;
     private ResultSet results;
 
     private ArrayList<String[]> animals = new ArrayList<String[]>();
@@ -27,6 +27,7 @@ public class SQLInfo {
     }
 
     public SQLInfo() {
+        /* 
         selectAnimals();
         selectTasks();
         selectTreatments();
@@ -35,11 +36,12 @@ public class SQLInfo {
         this.animals_obj = createAnimalsList();
         this.treatment_obj = createTreatmentList();
         this.tasks_obj = createTasksList();
+        */
     }
 
     public void createConnection() {
         try {
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/treatments", "root", "mOckingjay");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/treatments", "oop", "password");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,7 +171,7 @@ public class SQLInfo {
         return treatment_obj;
     }
 
-    public void insertNewStart(int animalID, int taskID, int startHour){
+    public static void insertNewStart(int animalID, int taskID, int startHour){
 
         try {
             
@@ -191,7 +193,7 @@ public class SQLInfo {
     }    
 
     
-    public void deleteTreatment(int treatmentID){
+    public static void deleteTreatment(int treatmentID){
                     
         try {
             String query = "DELETE FROM treatments WHERE TreatmentID = ?";
@@ -222,15 +224,25 @@ public class SQLInfo {
     }
 
     public static void main(String[] args) {
- 
-        EventQueue.invokeLater(() -> {
-            new ScheduleGUI().setVisible(true);        
-        });
 
         SQLInfo mySQL = new SQLInfo();
 
         mySQL.createConnection();
 
+        mySQL.selectAnimals();
+        mySQL.selectTreatments();
+        mySQL.selectTasks();
+
+        mySQL.createAnimalsList();
+        mySQL.createTasksList();
+        Treatment [] hi = mySQL.createTreatmentList();
+
+        System.out.println(hi[0].getStartHour());
+
+       /*  EventQueue.invokeLater(() -> {
+            new ScheduleGUI().setVisible(true);        
+        });
+*/
         mySQL.close();
     }
 }
