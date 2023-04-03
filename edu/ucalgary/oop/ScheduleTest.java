@@ -232,40 +232,51 @@ public class ScheduleTest {
 
         try{ 
             SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
-            try {
-                AssignTime expectedAssignTime = new AssignTime(animals, treatments);
-                AssignTime actualAssignTime = schedulePrint.getAssignTime();
+            AssignTime expectedAssignTime = new AssignTime(animals, treatments);
+            AssignTime actualAssignTime = schedulePrint.getAssignTime();
 
-                assertTrue("Constructor or getter gave wrong value for assign time",
-                expectedAssignTime, actualAssignTime);
-    
-            }
-
-            catch(IllegalSchedulee e) {}
-
+            assertEquals("Constructor or getter gave wrong value for animal", 
+            expectedAssignTime, actualAssignTime);
         }
 
         catch(IllegalSchedule e) {}
     }
 
-
-
-
-
-
-
-
-
-
+    /*
+    * Methods for the AssignTime class
+    */
 
     @Test 
-    public void testAssignTime() {
-
+    public void testFindLowestMaxWindowIndex() {
+        /*
+        * Tests the return of findLowestMaxIndex().
+        * Test with multiple treatments and multiple max windows
+        */
         //findLowestMaxWindowIndex: int
-        //removeTreatment: Treatment[]
-        //calculateDuration: int
-
     }
+
+    @Test
+    public void testRemoveTreatment() {
+        /*
+        * Tests the return of removeTreatment().
+        * Test with multiple treatments
+        */
+        //removeTreatment: Treatment[]
+    }
+
+    @Test
+    public void testCalculateDuration() {
+        /*
+        * Tests the return of calculateDuration().
+        * Test with multiple treatments, tasks and different
+        * variations of species
+        */
+        //calculateDuration: int
+    }
+
+    /*
+    * Methods for the SchedulePrint class
+    */
 
     @Test void testPrintSchedule() {
          /*
@@ -276,6 +287,10 @@ public class ScheduleTest {
         //printSchedule: void
     }
 
+    /*
+    * Methods for the Animal class
+    */
+
     @Test void testCheckAnimalSpecies() {
         /*
         * Tests the return of checkAnimalSpecies().
@@ -285,6 +300,10 @@ public class ScheduleTest {
         //checkAnimalSpecies: boolean
     }
 
+    /*
+    * Methods for the AnimalSpecies class
+    */
+ 
     @Test
     public void testCage() {
         /*
