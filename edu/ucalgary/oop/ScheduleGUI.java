@@ -1,3 +1,17 @@
+/**
+@author 
+    Halanna Le
+    Grace Jang
+    Christy Guirguis
+    Gillian Habermehl
+@version 3.0
+@since 1.0
+*/
+
+/*
+A graphical user interface for generating a schedule for animal care tasks.
+This class extends JFrame and implements the ActionListener and MouseListener interfaces.
+*/
 package edu.ucalgary.oop;
 
 import java.awt.BorderLayout;
@@ -10,6 +24,9 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
     private JLabel instructions;
     private int confirmClose = 0; 
 
+    /**
+     * Constructs a ScheduleGUI object with the title "Create schedule", sets up the GUI.
+    */
     public ScheduleGUI(){
         super("Create schedule");
         setupGUI();
@@ -17,6 +34,10 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);       
     }
 
+    /**
+     * Sets up the graphical user interface with a JLabel for instructions and a JButton to generate the schedule.
+     * The JLabel and JButton are added to separate JPanels which are then added to the JFrame using a BorderLayout.
+     */
     public void setupGUI(){
         instructions = new JLabel("This program will generate a schedule.");
         JButton generate = new JButton("Generate Schedule");
@@ -33,6 +54,12 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         this.add(generatePanel, BorderLayout.CENTER);
     }
     
+    /**
+     * The actionPerformed method is called when the generate schedule JButton is clicked. 
+     * If a schedule is successfully generated, a confirmation prompt is displayed to the user.
+     * If an IllegalSchedule exception is caught, a JDialog is displayed to inform user that the schedule cannot be generated.
+     * @param event the ActionEvent object that triggered method.
+     */
     public void actionPerformed(ActionEvent event){
         Animal[] animals = new Animal[8];
         animals[0] = new Animal(1, "Loner", "coyote");
