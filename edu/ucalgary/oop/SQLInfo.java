@@ -18,7 +18,7 @@ public class SQLInfo {
     public void createConnection() {
 
         try {
-            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/treatments", "root", "mOckingjay");
+            dbConnect = DriverManager.getConnection("jdbc:mysql://localhost/treatments", "root", "");
         } catch (SQLException e) {
             e.printStackTrace();
         }
