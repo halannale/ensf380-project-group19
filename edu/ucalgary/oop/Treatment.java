@@ -2,38 +2,26 @@ package edu.ucalgary.oop;
 
 public class Treatment {
 
-    private int animal;
-    private int medical;
+    private Animal animal;
+    private MedicalTask medical;
     private int startHour;
 
     //constructor
-    Treatment(int aID, int tID, int startHour){
-        this.animal = aID;
-        this.medical = tID;
+    Treatment(Animal animal, MedicalTask task, int startHour){
+        this.animal = animal;
+        this.medical = task;
         this.startHour = startHour;
     }
-
-    //AnimalTask is not constructor, needs to be 
-    //fixed with right return variable/code
-
-    public void AnimalTask(int aID, int tID, int startHour){
-        this.animal = aID;
-        this.medical = tID;
-        this.startHour = startHour;
-    }
-
 
     public int getStartHour() {
         return this.startHour;
     }
 
-    public int getMedical() {
+    public MedicalTask getMedical() {
         return this.medical;
     }
 
-    public int getAnimal() {
+    public Animal getAnimal() {
         return this.animal;
     }
-
-    
 }
