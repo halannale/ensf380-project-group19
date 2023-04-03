@@ -18,11 +18,25 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 import java.awt.FlowLayout;
 
 public class ScheduleGUI extends JFrame implements ActionListener, MouseListener{
     private JLabel instructions;
     private int confirmClose = 0; 
+    private static ArrayList<String> tasksToChange;
+
+    /**
+     * Sets the static variable to tasks to be changed.
+     * @param tasksToChange the tasks to be changed
+     */
+    public static void setTasksToChange(ArrayList<String> tasksToChange) {
+        ScheduleGUI.tasksToChange = tasksToChange;
+    }
+
+    public static ArrayList<String> getTasksToChange() {
+        return ScheduleGUI.tasksToChange;
+    }
 
     /**
      * Constructs a ScheduleGUI object with the title "Create schedule", sets up the GUI.
@@ -73,13 +87,13 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
 
         MedicalTask[] tasks = new MedicalTask[3];
         tasks[0] = new MedicalTask(1, "Kit feeding", 30, 2);
-        tasks[1] = new MedicalTask(2, "Rebandage leg wound", 20, 1);
+        tasks[1] = new MedicalTask(2, "Rebandage leg wound", 30, 1);
         tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
 
         Treatment[] treatments = new Treatment[5];
-        treatments[0] = new Treatment(animals[2], tasks[1],19);
-        treatments[1] = new Treatment(animals[5], tasks[1], 19);
-        treatments[2] = new Treatment(animals[5], tasks[1], 19);
+        treatments[0] = new Treatment(animals[2], tasks[1],13);
+        treatments[1] = new Treatment(animals[5], tasks[1], 14);
+        treatments[2] = new Treatment(animals[5], tasks[1], 15);
         treatments[3] = new Treatment(animals[1], tasks[1], 16);
         treatments[4] = new Treatment(animals[4], tasks[1], 17);
         try {
@@ -104,12 +118,18 @@ public class ScheduleGUI extends JFrame implements ActionListener, MouseListener
         catch (IllegalSchedule e) {
             //if illegal schedule
             JDialog illegalDialog = new JDialog(this, "Cannot Generate Schedule", true);
-            JLabel illegalLabel = new JLabel("Not possible to create schedule. Please check input data.");
+            JLabel illegalLabel = new JLabel(String.format("Cannot generate schedule because of too many tasks at time: %1$s:00.", tasksToChange.get(0)));
+            JLabel illegalInstruction = new JLabel("Please change the following treatment start times:");
             JPanel headerPanel = new JPanel();
             headerPanel.setLayout(new FlowLayout());
             headerPanel.add(illegalLabel);
+            JPanel instructionPanel = new JPanel();
+            instructionPanel.setLayout(new FlowLayout());
+            instructionPanel.add(illegalInstruction);
+            JLabel task = new JLabel(String.format("%1$s", tasksToChange.get(1)));
+            instructionPanel.add(task);
             illegalDialog.add(headerPanel, BorderLayout.NORTH);
-            
+            illegalDialog.add(instructionPanel, BorderLayout.CENTER);
 
 
 

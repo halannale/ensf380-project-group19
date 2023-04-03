@@ -20,7 +20,6 @@ import java.util.*;
 public class AssignTime {
     private HashMap<Integer, ArrayList<String>> schedule;
     private int[] availableTime = new int[24];
-    private ArrayList<String> tasksToChange;
 
     /**
      * Constructs an AssignTime object with schedule and available time each hour
@@ -32,6 +31,7 @@ public class AssignTime {
     public AssignTime (Animal[] animals, Treatment[] currentTreatments) throws IllegalSchedule{
         HashMap<Integer, ArrayList<String>> schedule = new HashMap<>();
         ArrayList<ArrayList<String>> hourlyTasks = new ArrayList<>(); //initialize the hourly tasks array
+        ArrayList<String> tasksToChange = new ArrayList<>();
         Treatment[] totalTreatments = new Treatment[currentTreatments.length];
         for (int i=0; i < totalTreatments.length; i++) {
             totalTreatments[i] = new Treatment(currentTreatments[i].getAnimal(), currentTreatments[i].getMedical(), currentTreatments[i].getStartHour());
@@ -68,12 +68,16 @@ public class AssignTime {
                         currentTreatments = removeTreatment(currentTreatments, taskIndex);
                     }
                     else {
+                        tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                        ScheduleGUI.setTasksToChange(tasksToChange);
                         throw new IllegalSchedule();
                     }
                 }
                 else {
+                    tasksToChange.add(Integer.toString(taskIndex));
                     tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                    ScheduleGUI.setTasksToChange(tasksToChange);
                     throw new IllegalSchedule();
                 }
 
@@ -125,7 +129,9 @@ public class AssignTime {
                         hour++;
                     }
                     if (!hourFound) {
+                        tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
+                        ScheduleGUI.setTasksToChange(tasksToChange);
                         throw new IllegalSchedule();
                     }
                 }
@@ -262,6 +268,7 @@ public class AssignTime {
             schedule.put(i, hourlyTasks.get(i));
         }
         this.schedule = schedule;  
+        System.out.println(ScheduleGUI.getTasksToChange());
     }
 
     /**
@@ -287,9 +294,6 @@ public class AssignTime {
      * 
      * @return the tasks that might need changing
      */
-    public ArrayList<String> getTasksToChange() {
-        return this.tasksToChange;
-    }
 
     /**
      * Finds the treatment with the lowest maximum window.
