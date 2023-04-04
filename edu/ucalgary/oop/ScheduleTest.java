@@ -9,8 +9,8 @@ public class ScheduleTest {
     MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
     MedicalTask task2 = new MedicalTask(10, "Inspect broken leg", 5, 2);
 
-    Animal animal1 = new Animal(1, "Loner", "Coyote");
-    Animal animal2 = new Animal(2, "Biter", "Coyote");
+    Animal animal1 = new Animal(1, "Loner", "coyote");
+    Animal animal2 = new Animal(2, "Biter", "coyote");
     //test IllegalArgumentException
 
     Treatment treatment1 = new Treatment(animal1, task1, 22);
@@ -191,9 +191,28 @@ public class ScheduleTest {
         /*
         * Tests the return of getSchedule().
         */
+
         try{
             AssignTime assignTime = new AssignTime(animals, treatments);
-            HashMap<Integer, ArrayList<String>> expectedSchedule = ;
+            HashMap<Integer, ArrayList<String>> expectedSchedule = new HashMap<Integer, ArrayList<String>>();
+
+            ArrayList<String> cleanCages = new ArrayList<String>();
+            cleanCages.add("Clean cage(coyote)");
+
+            ArrayList<String> inspectLeg = new ArrayList<String>();
+            inspectLeg.add("Inspect broken leg(Loner)");
+
+            ArrayList<String> feed = new ArrayList<String>();
+            feed.add("Feed coyote");
+
+            ArrayList<String> eyedrops = new ArrayList<String>();
+            eyedrops.add("Eyedrops(Loner)");
+
+            expectedSchedule.put(0, cleanCages);
+            expectedSchedule.put(10, inspectLeg);
+            expectedSchedule.put(19, feed);
+            expectedSchedule.put(22, eyedrops);
+
             HashMap<Integer, ArrayList<String>>  actualSchedule = assignTime.getSchedule();
     
             assertEquals("Constructor or getter gave wrong value for schedule", 
@@ -208,6 +227,7 @@ public class ScheduleTest {
         /*
         * Tests the return of getTreatmentFromDescription().
         */
+
         try {
             AssignTime assignTime = new AssignTime(animals, treatments);
             Treatment expectedTreatment = treatment1;
