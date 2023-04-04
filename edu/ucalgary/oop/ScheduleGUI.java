@@ -76,8 +76,6 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      */
     public void actionPerformed(ActionEvent event){
         try {
-            System.out.println(SQLInfo.getAnimals()[0].getName());
-            System.out.println(SQLInfo.getTreatments()[0].getMedical().getDescription());
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
