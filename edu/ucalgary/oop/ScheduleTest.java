@@ -1,8 +1,6 @@
 package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import org.junit.*;
-import java.util.regex.*;
 import java.util.*;
 
 public class ScheduleTest {
@@ -78,7 +76,7 @@ public class ScheduleTest {
         int expectedDuration1 = 25;
         int actualDuration = task1.getDuration();
 
-        assertEquals("Constructor or getter gave wrong value for duration", 
+        assertEquals("Constructor or getter gave wrong value for task duration", 
         expectedDuration1, actualDuration);
     }
 
@@ -104,7 +102,7 @@ public class ScheduleTest {
         String expectedDescription1 = "Eyedrops";
         String actualDescription = task1.getDescription();
 
-        assertEquals("Constructor or getter gave wrong value for description", 
+        assertEquals("Constructor or getter gave wrong value for task description", 
         expectedDescription1, actualDescription);
     }
 
@@ -117,7 +115,7 @@ public class ScheduleTest {
         int expectedMaxWindow1 = 1;
         int actualMaxWindow = task1.getMaxWindow();
 
-        assertEquals("Constructor or getter gave wrong value for maximum window", 
+        assertEquals("Constructor or getter gave wrong value for task maximum window", 
         expectedMaxWindow1, actualMaxWindow);
     }
 
@@ -134,7 +132,7 @@ public class ScheduleTest {
         int expectedStartHour1 = 22;
         int actualStartHour = treatment1.getStartHour();
 
-        assertEquals("Constructor or getter gave wrong value for starting hour", 
+        assertEquals("Constructor or getter gave wrong value for treatment starting hour", 
         expectedStartHour1, actualStartHour);
     }
 
@@ -147,7 +145,7 @@ public class ScheduleTest {
         MedicalTask expectedTask = task1;
         MedicalTask actualTask = treatment1.getMedical();
 
-        assertEquals("Constructor or getter gave wrong value for medical task", 
+        assertEquals("Constructor or getter gave wrong value for treatment medical task", 
         expectedTask, actualTask);
     }
 
@@ -160,7 +158,7 @@ public class ScheduleTest {
         Animal expectedAnimal = animal1;
         Animal actualAnimal = treatment1.getAnimal();
 
-        assertEquals("Constructor or getter gave wrong value for animal", 
+        assertEquals("Constructor or getter gave wrong value for treatment animal", 
         expectedAnimal, actualAnimal);
     }
 
@@ -174,16 +172,18 @@ public class ScheduleTest {
         * Tests the return of getAvailableTime().
         */
 
-        // try{
-        //     AssignTime assignTime = new AssignTime(animals, treatments);
-        //     int[] expectedAvailalableTime = ;
-        //     int[] actualAvailableTime = assignTime.getAvailableTime();
+        try{
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            int[] expectedAvailableTime = {60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60, 60};
+            int[] actualAvailableTime = assignTime.getAvailableTime();
 
-        //     assertEquals("Constructor or getter gave wrong value for available time", 
-        //     expectedAvailableTime, actualAvailableTime);
-        // }
+            for(int i = 0; i < expectedAvailableTime.length; i++) {
+                assertEquals("Constructor or getter gave wrong value for available time", 
+                expectedAvailableTime[i], actualAvailableTime[i]);
+            }
+        }
 
-        // catch(IllegalSchedule e) {}
+        catch(IllegalSchedule e) {}
     }
 
     @Test
@@ -256,7 +256,7 @@ public class ScheduleTest {
             Treatment expectedTreatment = treatment1;
             Treatment actualTreatment = assignTime.getTreatmentFromDescription(treatments, "Eyedrops");
         
-            assertEquals("Constructor or getter gave wrong value for animal", 
+            assertEquals("Constructor or getter gave wrong value for treatment", 
             expectedTreatment, actualTreatment);
         } 
 
@@ -274,12 +274,24 @@ public class ScheduleTest {
         */
 
         try{ 
+            /*
+             * Make sure both schedule and available time (variables of the AssignTime class that is being returned)
+             * are equal to each other for the two AssignTime instances to be equal
+             */
             SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
             AssignTime expectedAssignTime = new AssignTime(animals, treatments);
             AssignTime actualAssignTime = schedulePrint.getAssignTime();
 
-            assertEquals("Constructor or getter gave wrong value for animal", 
-            expectedAssignTime, actualAssignTime);
+            int[] expectedAvailableTime = expectedAssignTime.getAvailableTime();
+            int[] actualAvailableTime = actualAssignTime.getAvailableTime();
+
+            for(int i = 0; i < expectedAvailableTime.length; i++) {
+                assertEquals("Constructor or getter gave wrong value for available time in getAssignTime()", 
+                expectedAvailableTime[i], actualAvailableTime[i]);
+            }
+
+            assertEquals("Constructor or getter gave wrong value for schedule in getAssignTime()", 
+            expectedAssignTime.getSchedule(), actualAssignTime.getSchedule());
         }
 
         catch(IllegalSchedule e) {}
@@ -357,6 +369,7 @@ public class ScheduleTest {
         * and with the instance of orphans.
         */
         //cage: int
+        // wait
     }
 
     @Test
@@ -366,6 +379,7 @@ public class ScheduleTest {
         * Tests with multiple animals.
         */
         //feed: int
+        // wait
     }
 
     @Test
