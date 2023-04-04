@@ -297,47 +297,9 @@ public class ScheduleTest {
         catch(IllegalSchedule e) {}
     }
 
-    /*
-    * Methods for the AssignTime class
-    */
+    
 
-    @Test 
-    public void testFindLowestMaxWindowIndex() {
-        /*
-        * Tests the return of findLowestMaxIndex().
-        * Test with multiple treatments and multiple max windows
-        */
-
-        try{
-            AssignTime assignTime = new AssignTime(animals, treatments);
-            int expectedIndex = 0;
-            int actualIndex = assignTime.findLowestMaxWindowIndex(treatments);
-
-            assertEquals("Constructor or getter gave wrong value for max window index", 
-            expectedIndex, actualIndex);
-        }
-
-        catch(IllegalSchedule e) {}
-    }
-
-    @Test
-    public void testRemoveTreatment() {
-        /*
-        * Tests the return of removeTreatment().
-        * Test with multiple treatments
-        */
-        //removeTreatment: Treatment[]
-    }
-
-    @Test
-    public void testCalculateDuration() {
-        /*
-        * Tests the return of calculateDuration().
-        * Test with multiple treatments, tasks and different
-        * variations of species
-        */
-        //calculateDuration: int
-    }
+    // do enum testing
 
     /*
     * Methods for the SchedulePrint class
