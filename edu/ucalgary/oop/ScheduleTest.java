@@ -307,7 +307,17 @@ public class ScheduleTest {
         * Tests the return of findLowestMaxIndex().
         * Test with multiple treatments and multiple max windows
         */
-        //findLowestMaxWindowIndex: int
+
+        try{
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            int expectedIndex = 0;
+            int actualIndex = assignTime.findLowestMaxWindowIndex(treatments);
+
+            assertEquals("Constructor or getter gave wrong value for max window index", 
+            expectedIndex, actualIndex);
+        }
+
+        catch(IllegalSchedule e) {}
     }
 
     @Test
