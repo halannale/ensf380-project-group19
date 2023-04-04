@@ -68,7 +68,6 @@ public class AssignTime {
                         currentTreatments = removeTreatment(currentTreatments, taskIndex);
                     }
                     else {
-                        tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                         tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
                         tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
@@ -78,7 +77,6 @@ public class AssignTime {
                     }
                 }
                 else {
-                    tasksToChange.add(Integer.toString(taskIndex));
                     tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                     tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
                     tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
@@ -135,7 +133,6 @@ public class AssignTime {
                         hour++;
                     }
                     if (!hourFound) {
-                        tasksToChange.add(Integer.toString(taskIndex));
                         tasksToChange.add(currentTreatments[taskIndex].getMedical().getDescription() + "(" + currentTreatments[taskIndex].getAnimal().getName() + ")");
                         tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getStartHour()));
                         tasksToChange.add(Integer.toString(currentTreatments[taskIndex].getAnimal().getID()));
