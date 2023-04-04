@@ -247,3 +247,4 @@ public class SQLInfo {
         mySQL.close();
     }
 }
+
