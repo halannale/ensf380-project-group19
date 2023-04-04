@@ -25,6 +25,7 @@ public class ScheduleGUI extends JFrame implements ActionListener{
     private int confirmClose = 0; 
     private static ArrayList<String> tasksToChange;
     private int newStartHour;
+    private static int continueSchedule = 1;
 
     /**
      * Sets the static variable to tasks to be changed.
@@ -36,6 +37,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
 
     public static ArrayList<String> getTasksToChange() {
         return ScheduleGUI.tasksToChange;
+    }
+
+    public static int getContinueSchedule() {
+        return ScheduleGUI.continueSchedule;
     }
 
     /**
@@ -75,8 +80,6 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      * @param event the ActionEvent object that triggered method.
      */
     public void actionPerformed(ActionEvent event){
-        int continueSchedule = 1;
-        while(continueSchedule == 1) {
         try {
             continueSchedule = 0;
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
@@ -142,7 +145,6 @@ public class ScheduleGUI extends JFrame implements ActionListener{
         
         if (confirmClose == 0) {
             System.exit(0);
-        }
         }
     }
     private boolean validateInput(){
