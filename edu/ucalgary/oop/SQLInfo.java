@@ -27,16 +27,7 @@ public class SQLInfo {
     }
 
     public SQLInfo() {
-        /* 
-        selectAnimals();
-        selectTasks();
-        selectTreatments();
-        createTasksList();
-
-        this.animals_obj = createAnimalsList();
-        this.treatment_obj = createTreatmentList();
-        this.tasks_obj = createTasksList();
-        */
+    
     }
 
     public void createConnection() {
@@ -236,14 +227,14 @@ public class SQLInfo {
 
         mySQL.createAnimalsList();
         mySQL.createTasksList();
-        Treatment [] hi = mySQL.createTreatmentList();
+        mySQL.createTreatmentList();
 
-        System.out.println(hi[0].getStartHour());
 
+        /* 
          EventQueue.invokeLater(() -> {
             new ScheduleGUI().setVisible(true);        
         });
-
+*/
         mySQL.close();
     }
 }
