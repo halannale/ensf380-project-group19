@@ -174,7 +174,6 @@ public class SQLInfo {
     public static void insertNewStart(int animalID, int taskID, int startHour){
 
         try {
-            
             String query = "INSERT INTO TREATMENTS (animalID, taskID, startHour) VALUES (?,?,?)";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
             
@@ -193,14 +192,16 @@ public class SQLInfo {
     }    
 
     
-    public static void deleteTreatment(int treatmentID){
+    public static void deleteTreatment(int animalID, int taskID, int startHour){
                     
         try {
-            String query = "DELETE FROM treatments WHERE TreatmentID = ?";
+            String query = "DELETE FROM TREATMENTS WHERE animalID = ? AND taskID = ? AND startHour = ?";
             PreparedStatement myStmt = dbConnect.prepareStatement(query);
-
-            myStmt.setInt(1, treatmentID);
-                        
+            
+            myStmt.setInt(1, animalID);
+            myStmt.setInt(2, taskID);
+            myStmt.setInt(3, startHour);
+            
             int rowCount = myStmt.executeUpdate();
             System.out.println("Rows affected: " + rowCount);
             
@@ -209,8 +210,8 @@ public class SQLInfo {
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+    }
 
-    } 
 
     public void close() {
         try {
@@ -238,8 +239,8 @@ public class SQLInfo {
         Treatment [] hi = mySQL.createTreatmentList();
 
         System.out.println(hi[0].getStartHour());
-
-       /*  EventQueue.invokeLater(() -> {
+/* 
+         EventQueue.invokeLater(() -> {
             new ScheduleGUI().setVisible(true);        
         });
 */

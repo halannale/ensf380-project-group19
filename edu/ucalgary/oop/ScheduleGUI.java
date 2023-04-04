@@ -143,10 +143,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                     newStartHour = Integer.parseInt(userInputValue);
                     int animalID = Integer.parseInt(tasksToChange.get(3));
                     int medicalID = Integer.parseInt(tasksToChange.get(4));
-
+ 
                     if (validateInput()) {
                         SQLInfo.deleteTreatment();
-                    } 
+                    }
                 }
             });
 
@@ -179,4 +179,5 @@ public class ScheduleGUI extends JFrame implements ActionListener{
             new ScheduleGUI().setVisible(true);        
         });
     }
+    
 }
