@@ -81,7 +81,7 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      */
     public void actionPerformed(ActionEvent event){
         try {
-            continueSchedule = 0;
+            ScheduleGUI.continueSchedule = 0;
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
