@@ -27,16 +27,7 @@ public class SQLInfo {
     }
 
     public SQLInfo() {
-        /* 
-        selectAnimals();
-        selectTasks();
-        selectTreatments();
-        createTasksList();
-
-        this.animals_obj = createAnimalsList();
-        this.treatment_obj = createTreatmentList();
-        this.tasks_obj = createTasksList();
-        */
+    
     }
 
     public void createConnection() {
@@ -131,7 +122,6 @@ public class SQLInfo {
                 System.out.println("Invalid animal species: " + animalData[2]);
             }
         }
-        this.animals_obj = animals_obj;
         return animals_obj;
     }
 
@@ -167,7 +157,6 @@ public class SQLInfo {
             treatment_obj[i] = new_treatment;
             
         }
-        this.treatment_obj = treatment_obj;
         return treatment_obj;
     }
 
@@ -236,13 +225,13 @@ public class SQLInfo {
 
         mySQL.createAnimalsList();
         mySQL.createTasksList();
-        Treatment [] hi = mySQL.createTreatmentList();
+        mySQL.createTreatmentList();
 
-        System.out.println(hi[0].getStartHour());
-
-         EventQueue.invokeLater(() -> {
-            new ScheduleGUI().setVisible(true);        
-        });
+        while (ScheduleGUI.getContinueSchedule() == 1) {
+            EventQueue.invokeLater(() -> {
+                new ScheduleGUI().setVisible(true);        
+            });
+        }
 
         mySQL.close();
     }

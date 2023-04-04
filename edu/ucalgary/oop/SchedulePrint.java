@@ -83,7 +83,6 @@ public class SchedulePrint {
                 e.printStackTrace();
             }
         }
-        System.out.println("Schedule written to schedule.txt");
     }
 
     /**

@@ -25,6 +25,7 @@ public class ScheduleGUI extends JFrame implements ActionListener{
     private int confirmClose = 0; 
     private static ArrayList<String> tasksToChange;
     private int newStartHour;
+    private static int continueSchedule = 1;
 
     /**
      * Sets the static variable to tasks to be changed.
@@ -36,6 +37,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
 
     public static ArrayList<String> getTasksToChange() {
         return ScheduleGUI.tasksToChange;
+    }
+
+    public static int getContinueSchedule() {
+        return ScheduleGUI.continueSchedule;
     }
 
     /**
@@ -76,11 +81,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      */
     public void actionPerformed(ActionEvent event){
         try {
+            ScheduleGUI.continueSchedule = 0;
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
-            SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
-            SQLInfo.insertNewStart(animalID, medicalID, newStartHour);
             for (int i=0; i<24; i++) {
                 if (schedulePrint.getAssignTime().getAvailableTime()[i] == 120) {
                     backup = i;
@@ -99,15 +103,15 @@ public class ScheduleGUI extends JFrame implements ActionListener{
         catch (IllegalSchedule e) {
             //if illegal schedule
             JDialog illegalDialog = new JDialog(this, "Cannot Generate Schedule", true);
-            JLabel illegalLabel = new JLabel(String.format("Cannot generate schedule because of too many tasks at time: %1$s:00.", tasksToChange.get(0)));
-            JLabel illegalInstruction = new JLabel(String.format("Please change the following treatment start time (Original start hour: %1$s:00):", tasksToChange.get(2)));
+            JLabel illegalLabel = new JLabel("Cannot generate schedule.");
+            JLabel illegalInstruction = new JLabel(String.format("Please change the following treatment start time (Original start hour: %1$s:00):", tasksToChange.get(1)));
             JPanel headerPanel = new JPanel();
             headerPanel.setLayout(new FlowLayout());
             headerPanel.add(illegalLabel);
             JPanel inputPanel = new JPanel();
             inputPanel.setLayout(new FlowLayout());
             inputPanel.add(illegalInstruction);
-            JLabel task = new JLabel(String.format("%1$s", tasksToChange.get(1)));
+            JLabel task = new JLabel(String.format("%1$s", tasksToChange.get(0)));
             inputPanel.add(task);
             JTextField input = new JTextField("", 2);
             inputPanel.add(input);
@@ -119,10 +123,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     String userInputValue = input.getText();
-                    int oldStartHour = Integer.parseInt(tasksToChange.get(2));
+                    int oldStartHour = Integer.parseInt(tasksToChange.get(1));
                     newStartHour = Integer.parseInt(userInputValue);
-                    int animalID = Integer.parseInt(tasksToChange.get(3));
-                    int medicalID = Integer.parseInt(tasksToChange.get(4));
+                    int animalID = Integer.parseInt(tasksToChange.get(2));
+                    int medicalID = Integer.parseInt(tasksToChange.get(3));
  
                     if (validateInput()) {
                         SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
