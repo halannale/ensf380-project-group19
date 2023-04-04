@@ -18,11 +18,11 @@ public class SQLInfo {
 
 
 
-    public Animal [] getAnimals(){
+    public static Animal [] getAnimals(){
         return this.animals_obj;
     }
 
-    public Treatment [] getTreatments(){
+    public static Treatment [] getTreatments(){
         return this.treatment_obj;
     }
 
@@ -131,7 +131,7 @@ public class SQLInfo {
                 System.out.println("Invalid animal species: " + animalData[2]);
             }
         }
-    
+        this.animals_obj = animals_obj;
         return animals_obj;
     }
 
@@ -148,7 +148,6 @@ public class SQLInfo {
             MedicalTask new_task = new MedicalTask(taskID, description, duration, maxWindow);
             tasks_obj[i] = new_task;
         }
-    
         return tasks_obj;
     }
 
@@ -168,6 +167,7 @@ public class SQLInfo {
             treatment_obj[i] = new_treatment;
             
         }
+        this.treatment_obj = treatment_obj;
         return treatment_obj;
     }
 
@@ -239,11 +239,11 @@ public class SQLInfo {
         Treatment [] hi = mySQL.createTreatmentList();
 
         System.out.println(hi[0].getStartHour());
-/* 
+
          EventQueue.invokeLater(() -> {
             new ScheduleGUI().setVisible(true);        
         });
-*/
+
         mySQL.close();
     }
 }
