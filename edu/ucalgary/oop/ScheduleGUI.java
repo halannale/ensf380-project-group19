@@ -15,7 +15,6 @@ This class extends JFrame and implements the ActionListener and MouseListener in
 package edu.ucalgary.oop;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
@@ -76,29 +75,10 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      * @param event the ActionEvent object that triggered method.
      */
     public void actionPerformed(ActionEvent event){
-        Animal[] animals = new Animal[8];
-        animals[0] = new Animal(1, "Loner", "coyote");
-        animals[1] = new Animal(2, "Biter", "coyote");
-        animals[2] = new Animal(3, "Bitter", "coyote");
-        animals[3] = new Animal(4, "Pencil", "coyote");
-        animals[4] = new Animal(5, "Eraser", "coyote");
-        animals[5] = new Animal(6, "Annie, Oliver and Mowgli", "fox");
-        animals[6] = new Animal(7, "Slinky", "fox");
-        animals[7] = new Animal(8, "Spike", "porcupine");
-
-        MedicalTask[] tasks = new MedicalTask[3];
-        tasks[0] = new MedicalTask(1, "Kit feeding", 30, 2);
-        tasks[1] = new MedicalTask(2, "Rebandage leg wound", 30, 1);
-        tasks[2] = new MedicalTask(3, "Apply burn ointment back", 10, 3);
-
-        Treatment[] treatments = new Treatment[5];
-        treatments[0] = new Treatment(animals[2], tasks[1],13);
-        treatments[1] = new Treatment(animals[5], tasks[1], 14);
-        treatments[2] = new Treatment(animals[5], tasks[1], 15);
-        treatments[3] = new Treatment(animals[1], tasks[1], 16);
-        treatments[4] = new Treatment(animals[4], tasks[1], 17);
         try {
-            SchedulePrint schedulePrint = new SchedulePrint(animals, treatments);
+            System.out.println(SQLInfo.getAnimals()[0].getName());
+            System.out.println(SQLInfo.getTreatments()[0].getMedical().getDescription());
+            SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
             for (int i=0; i<24; i++) {
@@ -145,7 +125,8 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                     int medicalID = Integer.parseInt(tasksToChange.get(4));
  
                     if (validateInput()) {
-                        SQLInfo.deleteTreatment();
+                        SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
+                        SQLInfo.insertNewStart(animalID, medicalID, newStartHour);
                     }
                 }
             });
@@ -172,12 +153,4 @@ public class ScheduleGUI extends JFrame implements ActionListener{
         }
         return allInputValid;
     }
-    
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            new ScheduleGUI().setVisible(true);        
-        });
-    }
-    
 }
