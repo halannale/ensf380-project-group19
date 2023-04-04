@@ -12,18 +12,18 @@ public class SQLInfo {
     private ArrayList<String[]> animals = new ArrayList<String[]>();
     private ArrayList<String[]> treatments = new ArrayList<String[]>();
     private ArrayList<String[]> tasks = new ArrayList<String[]>();
-    private Animal [] animals_obj;
-    private Treatment [] treatment_obj;
-    private MedicalTask [] tasks_obj;
+    private static Animal [] animals_obj;
+    private static Treatment [] treatment_obj;
+    private static MedicalTask [] tasks_obj;
 
 
 
     public static Animal [] getAnimals(){
-        return this.animals_obj;
+        return SQLInfo.animals_obj;
     }
 
     public static Treatment [] getTreatments(){
-        return this.treatment_obj;
+        return SQLInfo.treatment_obj;
     }
 
     public SQLInfo() {
