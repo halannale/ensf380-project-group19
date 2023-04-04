@@ -79,6 +79,8 @@ public class ScheduleGUI extends JFrame implements ActionListener{
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
+            SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
+            SQLInfo.insertNewStart(animalID, medicalID, newStartHour);
             for (int i=0; i<24; i++) {
                 if (schedulePrint.getAssignTime().getAvailableTime()[i] == 120) {
                     backup = i;
