@@ -253,12 +253,10 @@ public class AssignTime {
             boolean hourFound = false;
             if ((AnimalSpecies.values()[i].toString() == "COYOTE" && !coyotes.isEmpty()) || (AnimalSpecies.values()[i].toString() == "FOX" && !foxes.isEmpty()) ||
             (AnimalSpecies.values()[i].toString() == "PORCUPINE" && !porcupines.isEmpty()) || (AnimalSpecies.values()[i].toString() == "BEAVER" && !beavers.isEmpty()) || (AnimalSpecies.values()[i].toString() == "RACOON" && !racoons.isEmpty())) {
-                System.out.println(AnimalSpecies.values()[i].toString());
                 while (!hourFound && hour < 24) {
                     ArrayList<String> tasksInHour = hourlyTasks.get(hour);
                     int totalDuration = calculateDuration(totalTreatments, tasksInHour, coyotes, foxes, porcupines, beavers, racoons);
                     if (totalDuration + duration <= availableTime[hour]) {
-                        System.out.println("Clean cage" + "(" + AnimalSpecies.values()[i].toString().toLowerCase() + ")");
                         tasksInHour.add("Clean cage" + "(" + AnimalSpecies.values()[i].toString().toLowerCase() + ")");
                         hourFound = true;
                         break;

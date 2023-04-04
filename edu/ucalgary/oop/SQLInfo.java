@@ -122,7 +122,6 @@ public class SQLInfo {
                 System.out.println("Invalid animal species: " + animalData[2]);
             }
         }
-        this.animals_obj = animals_obj;
         return animals_obj;
     }
 
@@ -158,7 +157,6 @@ public class SQLInfo {
             treatment_obj[i] = new_treatment;
             
         }
-        this.treatment_obj = treatment_obj;
         return treatment_obj;
     }
 
@@ -229,12 +227,10 @@ public class SQLInfo {
         mySQL.createTasksList();
         mySQL.createTreatmentList();
 
-
-        /* 
          EventQueue.invokeLater(() -> {
             new ScheduleGUI().setVisible(true);        
         });
-*/
+        
         mySQL.close();
     }
 }
