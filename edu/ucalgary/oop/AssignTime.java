@@ -155,19 +155,19 @@ public class AssignTime {
         ArrayList<Animal> beavers = new ArrayList<Animal>();
         ArrayList<Animal> racoons = new ArrayList<Animal>();
         for (int i=0; i<animals.length; i++) {
-            if(animals[i].getSpecies() == "coyote") {
+            if(animals[i].getSpecies().equals("coyote")) {
                 coyotes.add(animals[i]);
             }
-            if(animals[i].getSpecies() == "fox") {
+            if(animals[i].getSpecies().equals("fox")) {
                 foxes.add(animals[i]);
             }
-            if(animals[i].getSpecies() == "porcupine") {
+            if(animals[i].getSpecies().equals("porcupine")) {
                 porcupines.add(animals[i]);
             }
-            if(animals[i].getSpecies() == "beaver") {
+            if(animals[i].getSpecies().equals("beaver")) {
                 beavers.add(animals[i]);
             }
-            if(animals[i].getSpecies() == "racoon") {
+            if(animals[i].getSpecies().equals("racoon")) {
                 racoons.add(animals[i]);
             }
         }
@@ -176,24 +176,24 @@ public class AssignTime {
         for (int i = 0; i < AnimalSpecies.values().length; i++) { 
             int hour = AnimalSpecies.values()[i].feedWindow()[0];
             int duration;
-            if (AnimalSpecies.values()[i].toString() == "COYOTE") {
+            if (AnimalSpecies.values()[i].toString().equals("COYOTE")) {
                 duration = AnimalSpecies.values()[i].feed() * coyotes.size();
             }
-            else if (AnimalSpecies.values()[i].toString() == "FOX") {
+            else if (AnimalSpecies.values()[i].toString().equals("FOX")) {
                 duration = AnimalSpecies.values()[i].feed() * foxes.size();
             }
-            else if (AnimalSpecies.values()[i].toString() == "PORCUPINE") {
+            else if (AnimalSpecies.values()[i].toString().equals("PORCUPINE")) {
                 duration = AnimalSpecies.values()[i].feed() * porcupines.size();
             }
-            else if (AnimalSpecies.values()[i].toString() == "BEAVER") {
+            else if (AnimalSpecies.values()[i].toString().equals("BEAVER")) {
                 duration = AnimalSpecies.values()[i].feed() * beavers.size();
             }
             else {
                 duration = AnimalSpecies.values()[i].feed() * racoons.size();
             }
             boolean hourFound = false;
-            if ((AnimalSpecies.values()[i].toString() == "COYOTE" && !coyotes.isEmpty()) || (AnimalSpecies.values()[i].toString() == "FOX" && !foxes.isEmpty()) ||
-            (AnimalSpecies.values()[i].toString() == "PORCUPINE" && !porcupines.isEmpty()) || (AnimalSpecies.values()[i].toString() == "BEAVER" && !beavers.isEmpty()) || (AnimalSpecies.values()[i].toString() == "RACOON" && !racoons.isEmpty())) {
+            if ((AnimalSpecies.values()[i].toString().equals("COYOTE") && !coyotes.isEmpty()) || (AnimalSpecies.values()[i].toString().equals("FOX") && !foxes.isEmpty()) ||
+            (AnimalSpecies.values()[i].toString().equals("PORCUPINE") && !porcupines.isEmpty()) || (AnimalSpecies.values()[i].toString().equals("BEAVER") && !beavers.isEmpty()) || (AnimalSpecies.values()[i].toString().equals("RACOON") && !racoons.isEmpty())) {
                 while (!hourFound && hour < 24) {
                     if (hour >= AnimalSpecies.values()[i].feedWindow()[0] && hour <= AnimalSpecies.values()[i].feedWindow()[1]) {
                         ArrayList<String> tasksInHour = hourlyTasks.get(hour);
@@ -251,13 +251,12 @@ public class AssignTime {
                 duration = AnimalSpecies.values()[i].cage() * racoons.size();
             }
             boolean hourFound = false;
-            System.out.println(AnimalSpecies.values()[i].toString());
             if ((AnimalSpecies.values()[i].toString() == "COYOTE" && !coyotes.isEmpty()) || (AnimalSpecies.values()[i].toString() == "FOX" && !foxes.isEmpty()) ||
             (AnimalSpecies.values()[i].toString() == "PORCUPINE" && !porcupines.isEmpty()) || (AnimalSpecies.values()[i].toString() == "BEAVER" && !beavers.isEmpty()) || (AnimalSpecies.values()[i].toString() == "RACOON" && !racoons.isEmpty())) {
+                System.out.println(AnimalSpecies.values()[i].toString());
                 while (!hourFound && hour < 24) {
                     ArrayList<String> tasksInHour = hourlyTasks.get(hour);
                     int totalDuration = calculateDuration(totalTreatments, tasksInHour, coyotes, foxes, porcupines, beavers, racoons);
-                    System.out.println(totalDuration);
                     if (totalDuration + duration <= availableTime[hour]) {
                         System.out.println("Clean cage" + "(" + AnimalSpecies.values()[i].toString().toLowerCase() + ")");
                         tasksInHour.add("Clean cage" + "(" + AnimalSpecies.values()[i].toString().toLowerCase() + ")");
