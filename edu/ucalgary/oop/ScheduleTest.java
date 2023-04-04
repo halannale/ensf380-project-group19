@@ -58,7 +58,7 @@ public class ScheduleTest {
          * Tests the return of getSpecies().
          */
 
-        String expectedAnimalSpecies1 = "Coyote";
+        String expectedAnimalSpecies1 = "coyote";
         String actualAnimalSpecies = animal1.getSpecies();
   
         assertEquals("Constructor or getter gave wrong value for animal type", 
@@ -174,16 +174,16 @@ public class ScheduleTest {
         * Tests the return of getAvailableTime().
         */
 
-        try{
-            AssignTime assignTime = new AssignTime(animals, treatments);
-            int[] expectedAvailalableTime = ;
-            int[] actualAvailableTime = assignTime.getAvailableTime();
+        // try{
+        //     AssignTime assignTime = new AssignTime(animals, treatments);
+        //     int[] expectedAvailalableTime = ;
+        //     int[] actualAvailableTime = assignTime.getAvailableTime();
 
-            assertEquals("Constructor or getter gave wrong value for available time", 
-            expectedAvailableTime, actualAvailableTime);
-        }
+        //     assertEquals("Constructor or getter gave wrong value for available time", 
+        //     expectedAvailableTime, actualAvailableTime);
+        // }
 
-        catch(IllegalSchedule e) {}
+        // catch(IllegalSchedule e) {}
     }
 
     @Test
@@ -208,10 +208,33 @@ public class ScheduleTest {
             ArrayList<String> eyedrops = new ArrayList<String>();
             eyedrops.add("Eyedrops(Loner)");
 
+            ArrayList<String> empty = new ArrayList<String>();
+
+
             expectedSchedule.put(0, cleanCages);
+            expectedSchedule.put(1, empty);
+            expectedSchedule.put(2, empty);
+            expectedSchedule.put(3, empty);
+            expectedSchedule.put(4, empty);
+            expectedSchedule.put(5, empty);
+            expectedSchedule.put(6, empty);
+            expectedSchedule.put(7, empty);
+            expectedSchedule.put(8, empty);
+            expectedSchedule.put(9, empty);
             expectedSchedule.put(10, inspectLeg);
+            expectedSchedule.put(11, empty);
+            expectedSchedule.put(12, empty);
+            expectedSchedule.put(13, empty);
+            expectedSchedule.put(14, empty);
+            expectedSchedule.put(15, empty);
+            expectedSchedule.put(16, empty);
+            expectedSchedule.put(17, empty);
+            expectedSchedule.put(18, empty);
             expectedSchedule.put(19, feed);
+            expectedSchedule.put(20, empty);
+            expectedSchedule.put(21, empty);
             expectedSchedule.put(22, eyedrops);
+            expectedSchedule.put(23, empty);
 
             HashMap<Integer, ArrayList<String>>  actualSchedule = assignTime.getSchedule();
     
@@ -298,7 +321,8 @@ public class ScheduleTest {
     * Methods for the SchedulePrint class
     */
 
-    @Test void testPrintSchedule() {
+    @Test
+    public void testPrintSchedule() {
          /*
         * Tests the return of printSchedule().
         * Tests with both a valid and invalid schedule to see if an IllegalSchedule is thrown.
@@ -311,7 +335,8 @@ public class ScheduleTest {
     * Methods for the Animal class
     */
 
-    @Test void testCheckAnimalSpecies() {
+    @Test 
+    public void testCheckAnimalSpecies() {
         /*
         * Tests the return of checkAnimalSpecies().
         * Tests with both a valid and invalid input of

@@ -4,7 +4,7 @@
     Grace Jang
     Christy Guirguis
     Gillian Habermehl
-@version 1.1
+@version 2.0
 @since 1.0
 */
 
@@ -70,7 +70,7 @@ public class Animal {
      * @param species the species to check
      * @return true if the species is valid, false otherwise
      */
-    private boolean checkAnimalSpecies( String species) {
+    public boolean checkAnimalSpecies( String species) {
         for (int i=0; i < AnimalSpecies.values().length; i++) {
             if (Objects.equals(species, AnimalSpecies.values()[i].toString().toLowerCase())) {
                 return true;
