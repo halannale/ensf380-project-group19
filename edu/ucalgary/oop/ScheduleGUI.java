@@ -129,8 +129,11 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                     int medicalID = Integer.parseInt(tasksToChange.get(3));
  
                     if (validateInput()) {
+                        SQLInfo mySQL = new SQLInfo();
+                        mySQL.createConnection();
                         SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
                         SQLInfo.insertNewStart(animalID, medicalID, newStartHour);
+                        mySQL.close();
                     }
                 }
             });
