@@ -333,39 +333,143 @@ public class ScheduleTest {
     public void testCage() {
         /*
         * Tests the return of prep().
-        * Tests with different number of cages for cleaning, 
-        * and with the instance of orphans.
+        * Tests with all species. 
         */
-        //cage: int
-        // wait
+
+        int expectedCoyote = 5;
+        int actualCoyote = AnimalSpecies.values()[0].cage();
+        assertEquals("Enum gave wrong value for cage", 
+            expectedCoyote, actualCoyote);
+
+        int expectedFox = 5;
+        int actualFox = AnimalSpecies.values()[1].cage();
+        assertEquals("Enum gave wrong value for cage", 
+            expectedFox, actualFox);
+        
+        int expectedPorcupine = 10;
+        int actualPorcupine = AnimalSpecies.values()[2].cage();
+        assertEquals("Enum gave wrong value for cage", 
+             expectedPorcupine, actualPorcupine);
+
+        int expectedBeaver = 5;
+        int actualBeaver = AnimalSpecies.values()[3].cage();
+        assertEquals("Enum gave wrong value for cage", 
+            expectedBeaver, actualBeaver);
+
+        int expectedRacoon = 5;
+        int actualRacoon = AnimalSpecies.values()[4].cage();
+        assertEquals("Enum gave wrong value for cage", 
+            expectedRacoon, actualRacoon);
+
     }
 
     @Test
     public void testFeed() {
         /*
         * Tests the return of feed().
-        * Tests with multiple animals.
+        * Tests with all species.
         */
-        //feed: int
-        // wait
+
+        int expectedCoyote = 5;
+        int actualCoyote = AnimalSpecies.values()[0].feed();
+        assertEquals("Enum gave wrong value for feed", 
+            expectedCoyote, actualCoyote);
+
+        int expectedFox = 5;
+        int actualFox = AnimalSpecies.values()[1].feed();
+        assertEquals("Enum gave wrong value for feed", 
+            expectedFox, actualFox);
+        
+        int expectedPorcupine = 5;
+        int actualPorcupine = AnimalSpecies.values()[2].feed();
+        assertEquals("Enum gave wrong value for feed", 
+             expectedPorcupine, actualPorcupine);
+
+        int expectedBeaver = 5;
+        int actualBeaver = AnimalSpecies.values()[3].feed();
+        assertEquals("Enum gave wrong value for feed", 
+            expectedBeaver, actualBeaver);
+
+        int expectedRacoon = 5;
+        int actualRacoon = AnimalSpecies.values()[4].feed();
+        assertEquals("Enum gave wrong value for feed", 
+            expectedRacoon, actualRacoon);
     }
 
     @Test
     public void testPrep() {
         /*
         * Tests the return of prep().
-        * Tests with multiple animals.
+        * Tests with all species.
         */
-        //prep: int
+
+        int expectedCoyote = 50;
+        int actualCoyote = AnimalSpecies.values()[0].prep();
+        assertEquals("Enum gave wrong value for prep", 
+            expectedCoyote, actualCoyote);
+
+        int expectedFox = 5;
+        int actualFox = AnimalSpecies.values()[1].prep();
+        assertEquals("Enum gave wrong value for prep", 
+            expectedFox, actualFox);
+        
+        int expectedPorcupine = 0;
+        int actualPorcupine = AnimalSpecies.values()[2].prep();
+        assertEquals("Enum gave wrong value for prep", 
+             expectedPorcupine, actualPorcupine);
+
+        int expectedBeaver = 0;
+        int actualBeaver = AnimalSpecies.values()[3].prep();
+        assertEquals("Enum gave wrong value for prep", 
+            expectedBeaver, actualBeaver);
+
+        int expectedRacoon = 0;
+        int actualRacoon = AnimalSpecies.values()[4].prep();
+        assertEquals("Enum gave wrong value for prep", 
+            expectedRacoon, actualRacoon);
     }
 
     @Test
     public void testFeedWindow() {
         /*
         * Tests the return of feedWindow().
-        * Tests with multiple animals, and multiple feed windows.
+        * Tests with all species.
         */
-        //feedWindow: int[]
+
+        int[] expectedCoyote = {19, 21};
+        int[] actualCoyote = AnimalSpecies.values()[0].feedWindow();
+        for(int i = 0; i < 2; i++){
+            assertEquals("Enum gave wrong value for feed window", 
+                expectedCoyote[i], actualCoyote[i]);
+        }
+
+        int[] expectedFox = {0, 2};
+        int[] actualFox = AnimalSpecies.values()[1].feedWindow();
+        for(int i = 0; i < 2; i++){
+            assertEquals("Enum gave wrong value for feed window", 
+                expectedFox[i], actualFox[i]);
+        }
+
+        int[] expectedPorcupine = {19, 21};
+        int[] actualPorcupine = AnimalSpecies.values()[2].feedWindow();
+        for(int i = 0; i < 2; i++){
+            assertEquals("Enum gave wrong value for feed window", 
+                expectedPorcupine[i], actualPorcupine[i]);
+        }
+
+        int[] expectedBeaver = {8, 11};
+        int[] actualBeaver = AnimalSpecies.values()[3].feedWindow();
+        for(int i = 0; i < 2; i++){
+            assertEquals("Enum gave wrong value for feed window", 
+                expectedBeaver[i], actualBeaver[i]);
+        }
+
+        int[] expectedRacoon = {0, 2};
+        int[] actualRacoon = AnimalSpecies.values()[4].feedWindow();
+        for(int i = 0; i < 2; i++){
+            assertEquals("Enum gave wrong value for feed window", 
+                expectedRacoon[i], actualRacoon[i]);
+        }
     }
 }
 
