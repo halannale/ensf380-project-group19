@@ -9,6 +9,15 @@ public class ScheduleTest {
 
     Animal animal1 = new Animal(1, "Loner", "coyote");
     Animal animal2 = new Animal(2, "Biter", "coyote");
+    Animal animal3 = new Animal(3, "Bitter", "coyote");
+    Animal animal4 = new Animal(4, "Pencil", "coyote");
+    Animal animal5 = new Animal(5, "Eraser", "coyote");
+    Animal animal6 = new Animal(6, "Annie, Oliver and Mowgli", "fox");
+    Animal animal7 = new Animal(7, "Slinky", "fox");
+    Animal animal8 = new Animal(8, "Spike", "porcupine");
+    Animal animal9 = new Animal(9, "Javelin", "porcipine");
+    Animal animal10 = new Animal(10, "Slinky", "fox");
+
     //test IllegalArgumentException
 
     Treatment treatment1 = new Treatment(animal1, task1, 22);
