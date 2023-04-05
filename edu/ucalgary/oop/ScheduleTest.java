@@ -1,6 +1,8 @@
 package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.io.File;
 import java.util.*;
 
 public class ScheduleTest {
@@ -303,13 +305,57 @@ public class ScheduleTest {
 
     @Test
     public void testPrintSchedule() {
-         /*
-        * Tests the return of printSchedule().
-        * Tests with both a valid and invalid schedule to see if an IllegalSchedule is thrown.
-        * Also test when a backup volunteer is both need and not needed (60 and 61 minutes of tasks).
-        */
-        //printSchedule: void
+        // Test valid schedule
+        
+        SchedulePrint schedulePrint1 = null;
+        try {
+            schedulePrint1 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint1.printSchedule();
+        AssignTime assignTime1 = schedulePrint1.getAssignTime();
+        assertNotNull(assignTime1);
+        
+        // Test invalid schedule
+
+        SchedulePrint schedulePrint2 = null;
+        try {
+            schedulePrint2 = new SchedulePrint(animals, treatments);
+            schedulePrint2.printSchedule();
+            fail("Expected IllegalSchedule exception not thrown.");
+        } catch (IllegalSchedule e) {
+            // Expected exception thrown
+        }
+        // Verify that the file was not created
+        File file2 = new File("schedule.txt");
+        assertFalse(file2.exists());
+        
+        // Test with backup volunteer needed
+        
+        SchedulePrint schedulePrint3 = null;
+        try {
+            schedulePrint3 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint3.printSchedule();
+        AssignTime assignTime3 = schedulePrint3.getAssignTime();
+        assertNotNull(assignTime3);
+        
+        // Test with backup volunteer not needed
+        SchedulePrint schedulePrint4 = null;
+        try {
+            schedulePrint4 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint4.printSchedule();
+        AssignTime assignTime4 = schedulePrint4.getAssignTime();
+        assertNotNull(assignTime4);
     }
+
+
 
     /*
     * Methods for the Animal class
