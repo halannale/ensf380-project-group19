@@ -297,10 +297,6 @@ public class ScheduleTest {
         catch(IllegalSchedule e) {}
     }
 
-    
-
-    // do enum testing
-
     /*
     * Methods for the SchedulePrint class
     */
