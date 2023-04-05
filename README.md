@@ -16,6 +16,7 @@ javac -cp .:lib/mysql-connector-java-8.0.23.jar edu/ucalgary/oop/SQLInfo.java
 ```
 
 Followed by the command:
+
 For windows
 ```
 java -cp .;lib/mysql-connector-java-8.0.23.jar edu/ucalgary/oop/SQLInfo
