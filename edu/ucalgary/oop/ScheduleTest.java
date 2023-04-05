@@ -65,6 +65,8 @@ public class ScheduleTest {
         expectedAnimalSpecies1, actualAnimalSpecies);
     }
 
+    
+
     /*
     * Getters for the MedicalTask class
     */
@@ -361,15 +363,18 @@ public class ScheduleTest {
     * Methods for the Animal class
     */
 
-    @Test 
+    @Test
     public void testCheckAnimalSpecies() {
-        /*
-        * Tests the return of checkAnimalSpecies().
-        * Tests with both a valid and invalid input of
-        * the ennumeration.
-        */
-        //checkAnimalSpecies: boolean
+
+        boolean expectedAnimalSpecies1 = "coyote" != null;
+        String species = "coyote";
+        boolean actualAnimalSpecies = animal1.checkAnimalSpecies(species);
+
+        assertEquals("Constructor or getter gave wrong value for animal name", 
+        expectedAnimalSpecies1, actualAnimalSpecies);
     }
+
+    
 
     /*
     * Methods for the AnimalSpecies class
