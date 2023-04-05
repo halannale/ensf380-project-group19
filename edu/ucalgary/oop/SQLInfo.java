@@ -227,12 +227,9 @@ public class SQLInfo {
         mySQL.createTasksList();
         mySQL.createTreatmentList();
 
-        while (ScheduleGUI.getContinueSchedule() == 1) {
-            EventQueue.invokeLater(() -> {
-                new ScheduleGUI().setVisible(true);        
-            });
-        }
-
+        EventQueue.invokeLater(() -> {
+            new ScheduleGUI().setVisible(true);        
+        });
         mySQL.close();
     }
 }

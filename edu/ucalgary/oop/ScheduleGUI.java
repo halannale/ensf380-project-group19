@@ -15,6 +15,8 @@ This class extends JFrame and implements the ActionListener and MouseListener in
 package edu.ucalgary.oop;
 
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.*;
@@ -25,7 +27,6 @@ public class ScheduleGUI extends JFrame implements ActionListener{
     private int confirmClose = 0; 
     private static ArrayList<String> tasksToChange;
     private int newStartHour;
-    private static int continueSchedule = 1;
 
     /**
      * Sets the static variable to tasks to be changed.
@@ -37,10 +38,6 @@ public class ScheduleGUI extends JFrame implements ActionListener{
 
     public static ArrayList<String> getTasksToChange() {
         return ScheduleGUI.tasksToChange;
-    }
-
-    public static int getContinueSchedule() {
-        return ScheduleGUI.continueSchedule;
     }
 
     /**
@@ -80,8 +77,9 @@ public class ScheduleGUI extends JFrame implements ActionListener{
      * @param event the ActionEvent object that triggered method.
      */
     public void actionPerformed(ActionEvent event){
+        int continueSchedule = 1;
+        while (continueSchedule == 1) {
         try {
-            ScheduleGUI.continueSchedule = 0;
             SchedulePrint schedulePrint = new SchedulePrint(SQLInfo.getAnimals(), SQLInfo.getTreatments());
             schedulePrint.printSchedule();
             int backup = -1;
@@ -99,6 +97,7 @@ public class ScheduleGUI extends JFrame implements ActionListener{
             confirmClose++;
             JOptionPane.showMessageDialog(this, "Schedule created");
             confirmClose--;
+            continueSchedule = 0;
         }
         catch (IllegalSchedule e) {
             //if illegal schedule
@@ -129,9 +128,13 @@ public class ScheduleGUI extends JFrame implements ActionListener{
                     int medicalID = Integer.parseInt(tasksToChange.get(3));
  
                     if (validateInput()) {
+                        SQLInfo mySQL = new SQLInfo();
+                        mySQL.createConnection();
                         SQLInfo.deleteTreatment(animalID, medicalID, oldStartHour);
                         SQLInfo.insertNewStart(animalID, medicalID, newStartHour);
+                        mySQL.close();
                     }
+                    illegalDialog.dispose();
                 }
             });
 
@@ -141,10 +144,24 @@ public class ScheduleGUI extends JFrame implements ActionListener{
             illegalDialog.setSize(500, 300);
             illegalDialog.setLocationRelativeTo(this);
             illegalDialog.setVisible(true);
+
+
+            SQLInfo mySQL = new SQLInfo();
+            mySQL.createConnection();
+            mySQL.selectAnimals();
+            mySQL.selectTreatments();
+            mySQL.selectTasks();
+            mySQL.createAnimalsList();
+            mySQL.createTasksList();
+            mySQL.createTreatmentList();
+            EventQueue.invokeLater(() -> {
+                new ScheduleGUI().setVisible(true);
+            });
+            mySQL.close();
         }
-        
-        if (confirmClose == 0) {
+        if (confirmClose == 0 && continueSchedule == 0) {
             System.exit(0);
+        }
         }
     }
     private boolean validateInput(){
