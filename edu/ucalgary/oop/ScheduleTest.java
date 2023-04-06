@@ -15,7 +15,7 @@ public class ScheduleTest {
     Animal animal6 = new Animal(6, "Annie, Oliver and Mowgli", "fox");
     Animal animal7 = new Animal(7, "Slinky", "fox");
     Animal animal8 = new Animal(8, "Spike", "porcupine");
-    Animal animal9 = new Animal(9, "Javelin", "porcipine");
+    Animal animal9 = new Animal(9, "Javelin", "porcupine");
     Animal animal10 = new Animal(10, "Slinky", "fox");
 
     //test IllegalArgumentException

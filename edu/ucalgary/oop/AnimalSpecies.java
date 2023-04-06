@@ -101,47 +101,4 @@ public enum AnimalSpecies {
                 return new int[]{0,2};
         }
     }
-
-    public static void main(String[] args){
-        MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
-        MedicalTask task2 = new MedicalTask(10, "Inspect broken leg", 5, 2);
-    
-        Animal animal1 = new Animal(1, "Loner", "coyote");
-        Animal animal2 = new Animal(2, "Biter", "coyote");
-        //test IllegalArgumentException
-    
-        Treatment treatment1 = new Treatment(animal1, task1, 22);
-        Treatment treatment2 = new Treatment(animal1, task2, 10);
-    
-        Animal[] animals = {animal1, animal2};
-        Treatment[] treatments = {treatment1, treatment2};
-        MedicalTask[] tasks = {task1, task2};
-
-        AnimalSpecies coyote = COYOTE;
-        
-
-        for(int j = 0; j < 2; j++){
-            System.out.println(coyote.feedWindow()[j]);
-        }
-        AnimalSpecies fox = FOX;
-        for(int j = 0; j < 2; j++){
-            System.out.println(fox.feedWindow()[j]);
-        }
-        AnimalSpecies porcupine = PORCUPINE;
-        for(int j = 0; j < 2; j++){
-            System.out.println(porcupine.feedWindow()[j]);
-        }
-        AnimalSpecies beaver = BEAVER;
-        for(int j = 0; j < 2; j++){
-            System.out.println(beaver.feedWindow()[j]);
-        }
-        AnimalSpecies racoon = RACOON;
-        for(int j = 0; j < 2; j++){
-            System.out.println(racoon.feedWindow()[j]);
-        }
-        
-        System.out.println(AnimalSpecies.values()[0]);
-    
-        
-    }
 }
