@@ -164,7 +164,7 @@ public class SQLInfo {
             myStmt.setInt(2, taskID);
             myStmt.setInt(3, startHour);
             
-            int rowCount = myStmt.executeUpdate();
+            myStmt.executeUpdate();
             
             myStmt.close();
 
@@ -184,7 +184,7 @@ public class SQLInfo {
             myStmt.setInt(2, taskID);
             myStmt.setInt(3, startHour);
             
-            int rowCount = myStmt.executeUpdate();
+            myStmt.executeUpdate();
             
             myStmt.close();
 
