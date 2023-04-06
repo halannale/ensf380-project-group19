@@ -18,11 +18,11 @@ public class SQLInfo {
 
 
 
-    public static Animal [] getAnimals(){
+    public static Animal[] getAnimals(){
         return SQLInfo.animals_obj;
     }
 
-    public static Treatment [] getTreatments(){
+    public static Treatment[] getTreatments(){
         return SQLInfo.treatment_obj;
     }
 

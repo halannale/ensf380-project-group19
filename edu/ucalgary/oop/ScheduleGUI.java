@@ -174,4 +174,23 @@ public class ScheduleGUI extends JFrame implements ActionListener{
         }
         return allInputValid;
     }
+    public static void main(String[] args){
+        SQLInfo mySQL = new SQLInfo();
+            mySQL.createConnection();
+            mySQL.selectAnimals();
+            mySQL.selectTreatments();
+            mySQL.selectTasks();
+            mySQL.createAnimalsList();
+            mySQL.createTasksList();
+            mySQL.createTreatmentList();
+            EventQueue.invokeLater(() -> {
+                new ScheduleGUI().setVisible(true);
+            });
+            mySQL.close();
+            for(int i = 0; i < mySQL.getAnimals().length; i++){
+                System.out.println(mySQL.getAnimals()[i].getID());
+                System.out.println(mySQL.getAnimals()[i].getName());
+                System.out.println(mySQL.getAnimals()[i].getSpecies());
+            }
+    }
 }

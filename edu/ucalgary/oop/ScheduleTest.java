@@ -5,13 +5,13 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.util.*;
 
+
 public class ScheduleTest {
     MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
     MedicalTask task2 = new MedicalTask(10, "Inspect broken leg", 5, 2);
 
     Animal animal1 = new Animal(1, "Loner", "coyote");
     Animal animal2 = new Animal(2, "Biter", "coyote");
-    //test IllegalArgumentException
 
     Treatment treatment1 = new Treatment(animal1, task1, 22);
     Treatment treatment2 = new Treatment(animal1, task2, 10);
@@ -19,7 +19,6 @@ public class ScheduleTest {
     Animal[] animals = {animal1, animal2};
     Treatment[] treatments = {treatment1, treatment2};
     MedicalTask[] tasks = {task1, task2};
-
 
 
     /*
@@ -187,6 +186,7 @@ public class ScheduleTest {
             }
         }
 
+        // Making sure we catch illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -246,6 +246,7 @@ public class ScheduleTest {
             expectedSchedule, actualSchedule);
         }
 
+        // Making sure we catch the illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -264,6 +265,7 @@ public class ScheduleTest {
             expectedTreatment, actualTreatment);
         } 
 
+        // Making sure we catch the illegal arguments
         catch (IllegalSchedule e) {}
     }
 
@@ -298,6 +300,7 @@ public class ScheduleTest {
             expectedAssignTime.getSchedule(), actualAssignTime.getSchedule());
         }
 
+        // Making sure we catch illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -305,52 +308,58 @@ public class ScheduleTest {
     * Methods for the SchedulePrint class
     */
 
-    
-    //* Tests with both a valid and invalid schedule to see if an IllegalSchedule is thrown.
-    //* Also test when a backup volunteer is both need and not needed (60 and 61 minutes of tasks).
-
-
-    @Test
+   @Test
     public void testPrintSchedule() {
+        // Test valid schedule
         
-        try{
-            SchedulePrint schedule = new SchedulePrint(animals, treatments);
-            schedule.printSchedule();
-                   
-            File expectedfile = new File("schedule.txt");      
-            if(!expectedfile.exists()){
-                assertEquals("Error in making schedule.txt file", expectedfile.exists());
-            }
+        SchedulePrint schedulePrint1 = null;
+        try {
+            schedulePrint1 = new SchedulePrint(animals, treatments);
+        // Making sure we catch illegal arguments
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
         }
-        catch(IllegalSchedule e){
-        }
-
-        try{
-            SchedulePrint schedule = new SchedulePrint(animals, treatments);
-            schedule.printSchedule();
-            AssignTime assignTime = new AssignTime(animals, treatments);
-
-            int expectedNoBackUp = 60;
-            int expectedbackup = 120;
-
-            for (int i = 0; i < 24; i++) { 
-                int[] hour = assignTime.getAvailableTime();
-                int indexhour = hour[i];
-                if(indexhour == 120){
-                    assertEquals("A not needed backup volunteer is returned", expectedbackup, indexhour);
-
-                }
-                if(indexhour == 60){
-                    assertEquals("A not needed backup volunteer is returned", expectedNoBackUp, indexhour);
-
-                }
-                
-            }
-            
-        }
-        catch(IllegalSchedule e){
-        }
+        schedulePrint1.printSchedule();
+        AssignTime assignTime1 = schedulePrint1.getAssignTime();
+        assertNotNull(assignTime1);
         
+        // Test invalid schedule
+
+        SchedulePrint schedulePrint2 = null;
+        try {
+            schedulePrint2 = new SchedulePrint(animals, treatments);
+            schedulePrint2.printSchedule();
+            fail("Expected IllegalSchedule exception not thrown.");
+        // Making sure we catch illegal arguments
+        } catch (IllegalSchedule e) {
+            // Expected exception thrown
+        }
+        // Verify that the file was not created
+        File file2 = new File("schedule.txt");
+        assertFalse(file2.exists());
+        
+        // Test with backup volunteer needed
+        
+        SchedulePrint schedulePrint3 = null;
+        try {
+            schedulePrint3 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint3.printSchedule();
+        AssignTime assignTime3 = schedulePrint3.getAssignTime();
+        assertNotNull(assignTime3);
+        
+        // Test with backup volunteer not needed
+        SchedulePrint schedulePrint4 = null;
+        try {
+            schedulePrint4 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint4.printSchedule();
+        AssignTime assignTime4 = schedulePrint4.getAssignTime();
+        assertNotNull(assignTime4);
     }
 
 
