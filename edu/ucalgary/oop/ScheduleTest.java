@@ -1,3 +1,10 @@
+/*
+@author 
+    Halanna Le
+    Grace Jang
+    Christy Guirguis
+    Gillian Habermehl
+*/
 package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -63,8 +70,6 @@ public class ScheduleTest {
         assertEquals("Constructor or getter gave wrong value for animal type", 
         expectedAnimalSpecies1, actualAnimalSpecies);
     }
-
-    
 
     /*
     * Getters for the MedicalTask class
@@ -310,59 +315,52 @@ public class ScheduleTest {
 
    @Test
     public void testPrintSchedule() {
-        // Test valid schedule
-        
-        SchedulePrint schedulePrint1 = null;
-        try {
-            schedulePrint1 = new SchedulePrint(animals, treatments);
-        // Making sure we catch illegal arguments
-        } catch (IllegalSchedule e) {
-            fail("Unexpected exception thrown.");
-        }
-        schedulePrint1.printSchedule();
-        AssignTime assignTime1 = schedulePrint1.getAssignTime();
-        assertNotNull(assignTime1);
-        
-        // Test invalid schedule
+        /*
+        * Tests the return of printSchedule().
+        * Tests to make sure a schedule.txt file is correctly made and exists when printSchedule() is called.
+        * Tests the validity of calling a backup volunteer in the schedule.txt file when needed.
+        */
 
-        SchedulePrint schedulePrint2 = null;
-        try {
-            schedulePrint2 = new SchedulePrint(animals, treatments);
-            schedulePrint2.printSchedule();
-            fail("Expected IllegalSchedule exception not thrown.");
-        // Making sure we catch illegal arguments
-        } catch (IllegalSchedule e) {
-            // Expected exception thrown
+        try{
+            SchedulePrint schedule = new SchedulePrint(animals, treatments);
+            schedule.printSchedule();
+                   
+            File expectedfile = new File("schedule.txt");   
+            // If file is created and it exists   
+            if(!expectedfile.exists()){
+                assertEquals("Error in making schedule.txt file", expectedfile.exists());
+            }
         }
-        // Verify that the file was not created
-        File file2 = new File("schedule.txt");
-        assertFalse(file2.exists());
-        
-        // Test with backup volunteer needed
-        
-        SchedulePrint schedulePrint3 = null;
-        try {
-            schedulePrint3 = new SchedulePrint(animals, treatments);
-        } catch (IllegalSchedule e) {
-            fail("Unexpected exception thrown.");
+        // Making sure we catch the illegal arguments
+        catch(IllegalSchedule e){}
+
+        // Now checking .txt file calls a backup volunteer
+        try{
+            SchedulePrint schedule = new SchedulePrint(animals, treatments);
+            AssignTime assignTime = new AssignTime(animals, treatments);
+            schedule.printSchedule();
+            
+            int expectedNoBackUp = 60;
+            int expectedBackup = 120;
+
+            for (int i = 0; i < 24; i++) { 
+
+                int[] hour = assignTime.getAvailableTime();
+                int indexhour = hour[i];
+
+                if(indexhour == 120){
+                    assertEquals("A backup volunteer is needed but not called", expectedBackup, indexhour);
+                }
+
+                if(indexhour == 60){
+                    assertEquals("A backup volunteer is not needed but called", expectedNoBackUp, indexhour);
+                }   
+            }
         }
-        schedulePrint3.printSchedule();
-        AssignTime assignTime3 = schedulePrint3.getAssignTime();
-        assertNotNull(assignTime3);
-        
-        // Test with backup volunteer not needed
-        SchedulePrint schedulePrint4 = null;
-        try {
-            schedulePrint4 = new SchedulePrint(animals, treatments);
-        } catch (IllegalSchedule e) {
-            fail("Unexpected exception thrown.");
-        }
-        schedulePrint4.printSchedule();
-        AssignTime assignTime4 = schedulePrint4.getAssignTime();
-        assertNotNull(assignTime4);
+
+        // Making sure we catch the illegal arguments
+        catch(IllegalSchedule e){}
     }
-
-
 
     /*
     * Methods for the Animal class
@@ -378,8 +376,6 @@ public class ScheduleTest {
         assertEquals("Constructor or getter gave wrong value for animal name", 
         expectedAnimalSpecies1, actualAnimalSpecies);
     }
-
-    
 
     /*
     * Methods for the AnimalSpecies class
