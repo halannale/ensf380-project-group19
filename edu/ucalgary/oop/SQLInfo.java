@@ -212,5 +212,25 @@ public class SQLInfo {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+
+        SQLInfo mySQL = new SQLInfo();
+
+        mySQL.createConnection();
+
+        mySQL.selectAnimals();
+        mySQL.selectTreatments();
+        mySQL.selectTasks();
+
+        mySQL.createAnimalsList();
+        mySQL.createTasksList();
+        mySQL.createTreatmentList();
+
+        EventQueue.invokeLater(() -> {
+            new ScheduleGUI().setVisible(true);        
+        });
+        mySQL.close();
+    }
 }
 
