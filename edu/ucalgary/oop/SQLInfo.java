@@ -110,17 +110,11 @@ public class SQLInfo {
     
         for (int i = 0; i < numAnimals; i++) {
             String[] animalData = animals.get(i);
-            try {
-                int animalID = Integer.parseInt(animalData[0]);
+            int animalID = Integer.parseInt(animalData[0]);
                 String animalNickname = animalData[1];
                 String animalSpecies = animalData[2];
                 Animal new_animal = new Animal(animalID, animalNickname, animalSpecies);
                 animals_obj[i] = new_animal;
-            } catch (NumberFormatException ex) {
-                System.out.println("Invalid animal ID: " + animalData[0]);
-            } catch (IllegalArgumentException ex) {
-                System.out.println("Invalid animal species: " + animalData[2]);
-            }
         }
         return animals_obj;
     }
@@ -170,8 +164,7 @@ public class SQLInfo {
             myStmt.setInt(2, taskID);
             myStmt.setInt(3, startHour);
             
-            int rowCount = myStmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            myStmt.executeUpdate();
             
             myStmt.close();
 
@@ -191,8 +184,7 @@ public class SQLInfo {
             myStmt.setInt(2, taskID);
             myStmt.setInt(3, startHour);
             
-            int rowCount = myStmt.executeUpdate();
-            System.out.println("Rows affected: " + rowCount);
+            myStmt.executeUpdate();
             
             myStmt.close();
 
