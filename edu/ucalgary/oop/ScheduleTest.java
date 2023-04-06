@@ -1,7 +1,10 @@
 package edu.ucalgary.oop;
 import org.junit.Test;
 import static org.junit.Assert.*;
+
+import java.io.File;
 import java.util.*;
+
 
 public class ScheduleTest {
     MedicalTask task1 = new MedicalTask(9, "Eyedrops", 25, 1);
@@ -9,16 +12,6 @@ public class ScheduleTest {
 
     Animal animal1 = new Animal(1, "Loner", "coyote");
     Animal animal2 = new Animal(2, "Biter", "coyote");
-    Animal animal3 = new Animal(3, "Bitter", "coyote");
-    Animal animal4 = new Animal(4, "Pencil", "coyote");
-    Animal animal5 = new Animal(5, "Eraser", "coyote");
-    Animal animal6 = new Animal(6, "Annie, Oliver and Mowgli", "fox");
-    Animal animal7 = new Animal(7, "Slinky", "fox");
-    Animal animal8 = new Animal(8, "Spike", "porcupine");
-    Animal animal9 = new Animal(9, "Javelin", "porcupine");
-    Animal animal10 = new Animal(10, "Slinky", "fox");
-
-    //test IllegalArgumentException
 
     Treatment treatment1 = new Treatment(animal1, task1, 22);
     Treatment treatment2 = new Treatment(animal1, task2, 10);
@@ -26,7 +19,6 @@ public class ScheduleTest {
     Animal[] animals = {animal1, animal2};
     Treatment[] treatments = {treatment1, treatment2};
     MedicalTask[] tasks = {task1, task2};
-
 
 
     /*
@@ -192,6 +184,7 @@ public class ScheduleTest {
             }
         }
 
+        // Making sure we catch illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -251,6 +244,7 @@ public class ScheduleTest {
             expectedSchedule, actualSchedule);
         }
 
+        // Making sure we catch the illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -269,6 +263,7 @@ public class ScheduleTest {
             expectedTreatment, actualTreatment);
         } 
 
+        // Making sure we catch the illegal arguments
         catch (IllegalSchedule e) {}
     }
 
@@ -303,6 +298,7 @@ public class ScheduleTest {
             expectedAssignTime.getSchedule(), actualAssignTime.getSchedule());
         }
 
+        // Making sure we catch illegal arguments
         catch(IllegalSchedule e) {}
     }
 
@@ -310,28 +306,73 @@ public class ScheduleTest {
     * Methods for the SchedulePrint class
     */
 
-    @Test
+   @Test
     public void testPrintSchedule() {
-         /*
-        * Tests the return of printSchedule().
-        * Tests with both a valid and invalid schedule to see if an IllegalSchedule is thrown.
-        * Also test when a backup volunteer is both need and not needed (60 and 61 minutes of tasks).
-        */
-        //printSchedule: void
+        // Test valid schedule
+        
+        SchedulePrint schedulePrint1 = null;
+        try {
+            schedulePrint1 = new SchedulePrint(animals, treatments);
+        // Making sure we catch illegal arguments
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint1.printSchedule();
+        AssignTime assignTime1 = schedulePrint1.getAssignTime();
+        assertNotNull(assignTime1);
+        
+        // Test invalid schedule
+
+        SchedulePrint schedulePrint2 = null;
+        try {
+            schedulePrint2 = new SchedulePrint(animals, treatments);
+            schedulePrint2.printSchedule();
+            fail("Expected IllegalSchedule exception not thrown.");
+        // Making sure we catch illegal arguments
+        } catch (IllegalSchedule e) {
+            // Expected exception thrown
+        }
+        // Verify that the file was not created
+        File file2 = new File("schedule.txt");
+        assertFalse(file2.exists());
+        
+        // Test with backup volunteer needed
+        
+        SchedulePrint schedulePrint3 = null;
+        try {
+            schedulePrint3 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint3.printSchedule();
+        AssignTime assignTime3 = schedulePrint3.getAssignTime();
+        assertNotNull(assignTime3);
+        
+        // Test with backup volunteer not needed
+        SchedulePrint schedulePrint4 = null;
+        try {
+            schedulePrint4 = new SchedulePrint(animals, treatments);
+        } catch (IllegalSchedule e) {
+            fail("Unexpected exception thrown.");
+        }
+        schedulePrint4.printSchedule();
+        AssignTime assignTime4 = schedulePrint4.getAssignTime();
+        assertNotNull(assignTime4);
     }
 
     /*
     * Methods for the Animal class
     */
 
-    @Test 
+    @Test
     public void testCheckAnimalSpecies() {
-        /*
-        * Tests the return of checkAnimalSpecies().
-        * Tests with both a valid and invalid input of
-        * the ennumeration.
-        */
-        //checkAnimalSpecies: boolean
+
+        boolean expectedAnimalSpecies1 = "coyote" != null;
+        String species = "coyote";
+        boolean actualAnimalSpecies = animal1.checkAnimalSpecies(species);
+
+        assertEquals("Constructor or getter gave wrong value for animal name", 
+        expectedAnimalSpecies1, actualAnimalSpecies);
     }
 
     /*
