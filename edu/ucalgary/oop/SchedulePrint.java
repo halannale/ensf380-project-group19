@@ -67,7 +67,7 @@ public class SchedulePrint {
                 if(indexhour == 120){
                     writer.write(startTime+":00" + " [+ backup volunteer]" +"\n");
                 }
-                else {
+                if(indexhour == 60) {
                     if(tasksInHour.size() !=0 ){
                         writer.write(i+":00" +"\n");
                     }
